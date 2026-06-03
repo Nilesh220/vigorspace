@@ -13,11 +13,16 @@ async function submitSectionToSheet(sectionNumber, formData) {
       return storeLocally(sectionNumber, formData);
     }
 
+    // Transform field names to match Google Sheet column headers
+    const transformedData = transformFieldNames(formData);
+    
     const payload = {
-      section: `step${sectionNumber}`,
-      timestamp: new Date().toLocaleString(),
-      ...formData
+      Section: `step${sectionNumber}`,
+      Timestamp: new Date().toLocaleString(),
+      ...transformedData
     };
+
+    console.log("📤 Sending to Sheet.best:", payload);
 
     const response = await fetch(
       `https://api.sheetbest.com/sheets/${SHEET_BEST_KEY}`,
@@ -43,6 +48,38 @@ async function submitSectionToSheet(sectionNumber, formData) {
     console.error("Sheet submission failed, storing locally:", error);
     return storeLocally(sectionNumber, formData);
   }
+}
+
+// Transform field names to match Google Sheet headers
+function transformFieldNames(data) {
+  const mapping = {
+    f_name: "Full Name",
+    f_email: "Email",
+    f_phone: "Phone",
+    f_age: "Age",
+    f_gender: "Gender",
+    f_city: "City",
+    f_state: "State",
+    f_pincode: "Pincode",
+    f_ig: "Instagram URL",
+    f_followers: "Follower Count",
+    f_atype: "Type",
+    f_niche: "Content Niche",
+    f_niche_other: "Other",
+    f_college: "College Name",
+    f_college_city: "College City",
+    f_college_state: "College State",
+    f_college_pincode: "College Pincode",
+    f_course: "Course",
+    f_year: "Year"
+  };
+
+  const transformed = {};
+  for (const [key, value] of Object.entries(data)) {
+    const headerName = mapping[key] || key;
+    transformed[headerName] = value;
+  }
+  return transformed;
 }
 
 // Store data locally as backup
