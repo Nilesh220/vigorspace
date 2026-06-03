@@ -1,10 +1,32 @@
-// VigorSpace - Apps Script Integration
-// Send form data to Google Sheet after each step
+// VigorSpace - Google Sheet Integration (CORS-Safe)
+// Send form data to Google Sheet after each step using Sheet.best API
 
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz-9HzFpRYehi0a7_XhxF9bk9e-c_Gob_oFp7YyZh1bos03xT702qSOkjUwhwBku1lM2A/exec"; // Replace after deploying Apps Script
+// Replace with your Sheet.best key after creating it
+const SHEET_BEST_KEY = "YOUR_SHEET_BEST_KEY"; 
 
-// Function to send data to Apps Script
+// Alternative: Use Google Forms ID (simpler, no CORS issues)
+// Instructions: Create a Google Form connected to your sheet, then get form ID
+
+// Function to send data to Sheet via Sheet.best
 async function submitSectionToSheet(sectionNumber, formData) {
+  try {
+    // If using Sheet.best (recommended for CORS safety)
+    if (SHEET_BEST_KEY !== "YOUR_SHEET_BEST_KEY") {
+      return submitViaSheetBest(sectionNumber, formData);
+    }
+    
+    // Fallback: Store locally until sheet is configured
+    console.warn("⚠️ Sheet integration not configured yet. Data stored locally.");
+    return storeLocally(sectionNumber, formData);
+    
+  } catch(error) {
+    console.error("Sheet update failed:", error);
+    return false;
+  }
+}
+
+// Send via Sheet.best (handles CORS automatically)
+async function submitViaSheetBest(sectionNumber, formData) {
   try {
     const payload = {
       section: `step${sectionNumber}`,
@@ -12,25 +34,44 @@ async function submitSectionToSheet(sectionNumber, formData) {
       ...formData
     };
 
-    const response = await fetch(APPS_SCRIPT_URL, {
-      method: "POST",
-      body: JSON.stringify(payload),
-      headers: {
-        "Content-Type": "application/json"
+    const response = await fetch(
+      `https://sheet.best/api/sheets/${SHEET_BEST_KEY}`,
+      {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
       }
-    });
+    );
 
-    const result = await response.json();
-    
-    if (result.status === "success") {
-      console.log(`✓ Step ${sectionNumber} saved to Sheet:`, result.message);
+    if (response.ok) {
+      console.log(`✓ Step ${sectionNumber} saved to Sheet`);
       return true;
     } else {
-      console.error(`✗ Error saving Step ${sectionNumber}:`, result.message);
+      console.error(`✗ Sheet.best error:`, response.statusText);
       return false;
     }
   } catch(error) {
-    console.error("Sheet update failed:", error);
+    console.error("Sheet.best submission failed:", error);
+    return false;
+  }
+}
+
+// Store data locally as backup
+function storeLocally(sectionNumber, formData) {
+  try {
+    const allData = JSON.parse(localStorage.getItem("vs-form-data") || "{}");
+    allData[`step${sectionNumber}`] = {
+      timestamp: new Date().toLocaleString(),
+      ...formData
+    };
+    localStorage.setItem("vs-form-data", JSON.stringify(allData));
+    console.log(`✓ Step ${sectionNumber} stored locally`);
+    return true;
+  } catch(e) {
+    console.error("Local storage failed:", e);
     return false;
   }
 }
