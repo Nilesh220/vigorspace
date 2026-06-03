@@ -1,7 +1,7 @@
 // VigorSpace - Apps Script Integration
 // Send form data to Google Sheet after each step
 
-const APPS_SCRIPT_URL = "YOUR_DEPLOYMENT_URL"; // Replace after deploying Apps Script
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz-9HzFpRYehi0a7_XhxF9bk9e-c_Gob_oFp7YyZh1bos03xT702qSOkjUwhwBku1lM2A/exec"; // Replace after deploying Apps Script
 
 // Function to send data to Apps Script
 async function submitSectionToSheet(sectionNumber, formData) {
