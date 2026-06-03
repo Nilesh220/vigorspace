@@ -2,7 +2,7 @@
 // Send form data to Google Sheet after each step using Sheet.best API
 
 // Replace with your Sheet.best key after creating it
-const SHEET_BEST_KEY = "https://api.sheetbest.com/sheets/74c7727b-bac8-4c0f-b300-d87c593c7625"; 
+const SHEET_BEST_KEY = "74c7727b-bac8-4c0f-b300-d87c593c7625"; 
 
 // Alternative: Use Google Forms ID (simpler, no CORS issues)
 // Instructions: Create a Google Form connected to your sheet, then get form ID
