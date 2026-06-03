@@ -1,0 +1,1747 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="VigorSpace pairs college creators with verified brands for paid campaigns — apply in minutes, get matched within 48 hours."/>
+<title>VigorSpace — Turn Your Content Into Brand Collabs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+/* ══ THEME TOKENS ══ */
+:root{
+  --pink:#E8435A;--yellow:#FFD01F;--yd:#C9A600;
+  --bg:#08000A;--bg2:#100012;
+  --text:#F5F0F5;--muted:rgba(245,240,245,.52);
+  --surface:rgba(255,255,255,.04);--border:rgba(255,255,255,.08);--divider:rgba(255,255,255,.07);
+  --nav-glass:rgba(8,0,10,.88);--nav-border:rgba(232,67,90,.13);
+  --stat-div:rgba(255,255,255,.07);
+  --how-bg:#100012;--how-grid-sep:rgba(255,255,255,.07);--how-hover:rgba(232,67,90,.05);
+  --form-bg:#08000A;
+  --input-col:#F5F0F5;--input-ph:rgba(245,240,245,.22);--input-div:rgba(255,255,255,.07);
+  --opt-bg:#180018;
+  --hint:rgba(245,240,245,.26);--lang-border:rgba(255,255,255,.13);--lang-col:rgba(245,240,245,.52);
+  --fnote:rgba(245,240,245,.32);
+  --footer-bg:#06000C;--footer-border:rgba(255,255,255,.06);--footer-txt:rgba(245,240,245,.42);
+  --why-bg:#F5F0F5;--why-text:#0D0007;--why-muted:#6B5B70;
+  --logo-filter:invert(1);
+  --form-body-bg:#0F0018;
+  --fshead-col:rgba(245,240,245,.45);
+}
+[data-theme="light"]{
+  --bg:#FAFAFA;--bg2:#F4EFF7;
+  --text:#0D0007;--muted:rgba(13,0,7,.52);
+  --surface:rgba(255,255,255,.75);--border:rgba(0,0,0,.08);--divider:rgba(0,0,0,.07);
+  --nav-glass:rgba(250,250,250,.92);--nav-border:rgba(232,67,90,.15);
+  --stat-div:rgba(0,0,0,.08);
+  --how-bg:#F4EFF7;--how-grid-sep:rgba(0,0,0,.07);--how-hover:rgba(232,67,90,.06);
+  --form-bg:#F4EFF7;
+  --input-col:#0D0007;--input-ph:rgba(13,0,7,.28);--input-div:rgba(0,0,0,.1);
+  --opt-bg:#F4EFF7;
+  --hint:rgba(13,0,7,.36);--lang-border:rgba(0,0,0,.14);--lang-col:rgba(13,0,7,.55);
+  --fnote:rgba(13,0,7,.36);
+  --footer-bg:#EDE8F0;--footer-border:rgba(0,0,0,.08);--footer-txt:rgba(13,0,7,.42);
+  --why-bg:#F4EFF7;--why-text:#0D0007;--why-muted:#6B5B70;
+  --logo-filter:none;
+  --form-body-bg:#FFFFFF;
+  --fshead-col:rgba(13,0,7,.4);
+}
+
+html{scroll-behavior:auto}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;cursor:none;transition:background .3s,color .3s}
+body.loading{overflow:hidden}
+
+/* ══ GRAIN ══ */
+.grain{position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:.035;
+background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* ══ CURSOR ══ */
+#cdot,#cring{position:fixed;border-radius:50%;pointer-events:none;z-index:10000;transform:translate(-50%,-50%)}
+#cdot{width:8px;height:8px;background:var(--yellow);transition:width .15s,height .15s}
+#cring{width:34px;height:34px;border:1.5px solid rgba(232,67,90,.7);transition:width .22s,height .22s,background .2s}
+.hover-active #cring{width:50px;height:50px;background:rgba(232,67,90,.08);border-color:var(--pink)}
+.hover-active #cdot{width:5px;height:5px}
+@media(pointer:coarse){#cdot,#cring{display:none}body{cursor:auto}}
+
+/* ══ SCROLL BAR ══ */
+#sprog{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--pink),var(--yellow));z-index:5000;width:0;pointer-events:none}
+
+/* ══════════════════════════════
+   LOADER — SPLIT DOOR + RINGS
+══════════════════════════════ */
+#loader{position:fixed;inset:0;z-index:9997;background:#08000A;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.ld-door{position:absolute;left:0;right:0;height:50%;background:#08000A;z-index:15;transition:transform .95s cubic-bezier(.85,0,.15,1);will-change:transform}
+.ld-door-t{top:0}
+.ld-door-b{bottom:0}
+.ld-door-t::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent 0%,rgba(232,67,90,.4) 30%,rgba(255,208,31,.35) 60%,transparent 100%)}
+.ld-door-b::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent 0%,rgba(232,67,90,.4) 30%,rgba(255,208,31,.35) 60%,transparent 100%)}
+#loader.out .ld-door-t{transform:translateY(-100%)}
+#loader.out .ld-door-b{transform:translateY(100%)}
+.ld-rings{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:12}
+.ld-bg-glow{position:absolute;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(232,67,90,.16) 0%,rgba(255,208,31,.08) 40%,transparent 70%);animation:ldGlowP 2.4s ease-in-out infinite}
+@keyframes ldGlowP{0%,100%{transform:scale(1);opacity:.85}50%{transform:scale(1.65);opacity:.18}}
+.ld-ring-track{position:absolute;border-radius:50%;border:1px solid rgba(255,255,255,.06)}
+.ld-rt1{width:520px;height:520px}
+.ld-rt2{width:390px;height:390px}
+.ld-rt3{width:270px;height:270px}
+.ld-ring{position:absolute;border-radius:50%}
+.ld-r1{width:520px;height:520px;background:conic-gradient(from 0deg,transparent 50%,rgba(232,67,90,.75) 65%,rgba(255,208,31,.55) 80%,transparent 100%);-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 2px),#000 calc(100% - 2px));mask:radial-gradient(farthest-side,transparent calc(100% - 2px),#000 calc(100% - 2px));animation:ldSpin 3.6s linear infinite}
+.ld-r2{width:390px;height:390px;background:conic-gradient(from 200deg,transparent 50%,rgba(255,208,31,.8) 65%,rgba(232,67,90,.45) 80%,transparent 100%);-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 2px),#000 calc(100% - 2px));mask:radial-gradient(farthest-side,transparent calc(100% - 2px),#000 calc(100% - 2px));animation:ldSpin 2.5s linear infinite reverse}
+.ld-r3{width:270px;height:270px;background:conic-gradient(from 90deg,transparent 58%,rgba(232,67,90,.6) 74%,rgba(255,208,31,.35) 88%,transparent 100%);-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 1.5px),#000 calc(100% - 1.5px));mask:radial-gradient(farthest-side,transparent calc(100% - 1.5px),#000 calc(100% - 1.5px));animation:ldSpin 4.8s linear infinite}
+@keyframes ldSpin{to{transform:rotate(360deg)}}
+.ld-dot{position:absolute;z-index:13;width:7px;height:7px;border-radius:50%;background:var(--yellow);animation:ldDotP 1.8s ease-in-out infinite}
+@keyframes ldDotP{0%,100%{box-shadow:0 0 0 0 rgba(255,208,31,.55),0 0 0 0 rgba(255,208,31,.25)}50%{box-shadow:0 0 0 10px rgba(255,208,31,0),0 0 0 22px rgba(255,208,31,0)}}
+.ld-inner{position:relative;z-index:16;display:flex;flex-direction:column;align-items:center}
+.ld-logo{height:140px;filter:invert(1);opacity:0;transform:scale(.72) translateY(18px);transition:opacity .6s,transform .65s cubic-bezier(.34,1.56,.64,1)}
+.ld-logo.show{opacity:1;transform:scale(1) translateY(0)}
+.ld-count{font-family:'Plus Jakarta Sans',sans-serif;font-size:116px;font-weight:800;line-height:1;letter-spacing:-5px;color:transparent;-webkit-text-stroke:2.5px var(--yellow);text-align:center;margin-top:4px;opacity:0;transform:scale(.5);transition:opacity .22s,transform .22s cubic-bezier(.34,1.56,.64,1);min-width:140px}
+.ld-count.show{opacity:1;transform:scale(1)}
+.ld-count.hide{opacity:0;transform:scale(1.5);transition:opacity .12s,transform .12s}
+.ld-count.go-fill{-webkit-text-stroke:0;color:var(--yellow);letter-spacing:-3px;font-size:96px;text-shadow:0 0 50px rgba(255,208,31,.5),0 0 100px rgba(255,208,31,.18)}
+.ld-label{font-size:10px;letter-spacing:4.5px;text-transform:uppercase;color:rgba(245,240,245,.3);opacity:0;transition:opacity .5s;margin-top:16px}
+.ld-label.show{opacity:1}
+.ld-bar-wrap{width:230px;height:3px;background:rgba(255,255,255,.07);border-radius:4px;margin-top:36px;overflow:hidden;opacity:0;transition:opacity .4s}
+.ld-bar-wrap.show{opacity:1}
+.ld-bar{height:100%;width:0;background:linear-gradient(90deg,var(--pink),var(--yellow));border-radius:4px;box-shadow:0 0 12px rgba(255,208,31,.55),0 0 28px rgba(232,67,90,.2);transition:width .05s linear}
+
+/* ══ NAV ══ */
+nav{position:fixed;top:0;left:0;right:0;z-index:2000;padding:14px 48px;display:flex;align-items:center;justify-content:space-between;transition:background .3s,border-color .3s}
+nav.scrolled{background:var(--nav-glass);backdrop-filter:blur(20px);border-bottom:1px solid var(--nav-border)}
+.nav-logo{display:flex;align-items:center}
+.nav-logo img{height:72px;filter:var(--logo-filter);display:block;transition:filter .3s}
+[data-theme="light"] .nav-logo img{mix-blend-mode:multiply}
+.nav-links{display:flex;align-items:center;gap:6px}
+.nav-link{color:var(--muted);font-size:14px;font-weight:500;text-decoration:none;padding:7px 14px;border-radius:50px;transition:color .2s,background .2s}
+.nav-link:hover{color:var(--text);background:rgba(232,67,90,.08)}
+.theme-btn{background:none;border:1.5px solid var(--border);border-radius:50px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted);transition:color .2s,border-color .2s,background .2s;flex-shrink:0}
+.theme-btn:hover{color:var(--text);border-color:var(--pink);background:rgba(232,67,90,.08)}
+.nav-cta{background:var(--yellow);color:#1A0000;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:13px;letter-spacing:.3px;padding:9px 22px;border-radius:12px;text-decoration:none;border:1px solid rgba(0,0,0,.06);cursor:pointer;transition:transform .18s,box-shadow .18s,filter .18s;display:inline-flex;align-items:center;gap:6px}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(26,10,0,.12);filter:brightness(1.02)}
+
+/* ══ HERO ══ */
+.hero{min-height:100vh;position:relative;overflow:hidden;display:flex;align-items:center;padding:130px 48px 80px;background:#08000A}
+#hero-canvas{position:absolute;inset:0;width:100%;height:100%;opacity:.65}
+.hero-grid-bg{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background-image:radial-gradient(rgba(255,255,255,.052) 1px,transparent 1px);
+  background-size:36px 36px;
+  -webkit-mask-image:radial-gradient(ellipse 70% 90% at 22% 55%,black 10%,transparent 72%);
+  mask-image:radial-gradient(ellipse 70% 90% at 22% 55%,black 10%,transparent 72%)}
+.hero-stamp{position:absolute;bottom:-30px;right:-40px;font-family:'Plus Jakarta Sans',sans-serif;font-size:220px;font-weight:800;color:transparent;-webkit-text-stroke:1px rgba(232,67,90,.07);letter-spacing:-6px;z-index:1;user-select:none;pointer-events:none;white-space:nowrap;line-height:1}
+.hero-blob{position:absolute;border-radius:50%;filter:blur(110px);pointer-events:none;animation:blobDrift 9s ease-in-out infinite alternate}
+.hero-blob-1{width:540px;height:540px;background:var(--pink);opacity:.19;top:-120px;right:-60px}
+.hero-blob-2{width:380px;height:380px;background:var(--yellow);opacity:.11;bottom:-40px;left:-80px;animation-delay:-4s}
+@keyframes blobDrift{0%{transform:scale(1) translate(0,0)}100%{transform:scale(1.12) translate(28px,-28px)}}
+.hero-inner{position:relative;z-index:2;max-width:1160px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 320px;gap:56px;align-items:center}
+.hero-content{position:relative}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:9px;background:rgba(232,67,90,.12);border:1px solid rgba(232,67,90,.28);border-radius:50px;padding:7px 18px 7px 10px;font-size:11px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:rgba(255,208,31,.9);margin-bottom:26px;backdrop-filter:blur(10px)}
+.hero-eyebrow-dot{width:8px;height:8px;border-radius:50%;background:var(--yellow);flex-shrink:0;animation:ping 1.5s ease-in-out infinite}
+@keyframes ping{0%,100%{transform:scale(1);opacity:1;box-shadow:0 0 0 0 rgba(255,208,31,.5)}50%{transform:scale(1.7);opacity:.3;box-shadow:0 0 0 7px rgba(255,208,31,0)}}
+.hero-title{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;line-height:1.0;letter-spacing:-2.5px;margin-bottom:26px}
+.hero-title .ln{display:block;overflow:hidden}
+.hero-title .lni{display:block;transform:translateY(100%);opacity:0;transition:transform .7s cubic-bezier(.16,1,.3,1),opacity .7s}
+.hero-title .ln.revealed .lni{transform:translateY(0);opacity:1}
+.hero-title .ln:nth-child(1) .lni{transition-delay:.08s}
+.hero-title .ln:nth-child(2) .lni{transition-delay:.19s}
+.hero-title .ln:nth-child(3) .lni{transition-delay:.3s}
+.hero-title .ln:nth-child(4) .lni{transition-delay:.41s}
+.t-white{color:#F5F0F5;font-size:clamp(34px,5vw,64px)}
+.t-yellow{font-size:clamp(58px,8.5vw,106px);background:linear-gradient(125deg,#FFD01F 15%,#FF9040 55%,#E8435A 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 32px rgba(255,208,31,.2))}
+.t-outline{color:transparent;-webkit-text-stroke:2px var(--pink);font-size:clamp(58px,8.5vw,106px)}
+.hero-sub{font-size:16px;color:rgba(245,240,245,.6);line-height:1.75;max-width:440px;margin-bottom:36px;opacity:0;transform:translateY(18px);transition:opacity .7s .58s,transform .7s .58s}
+.hero-sub.revealed{opacity:1;transform:translateY(0)}
+.hero-actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap;opacity:0;transform:translateY(18px);transition:opacity .7s .72s,transform .7s .72s}
+.hero-actions.revealed{opacity:1;transform:translateY(0)}
+.btn-main{background:var(--yellow);color:#1A0000;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:15px;padding:12px 28px;border-radius:12px;text-decoration:none;border:1px solid rgba(0,0,0,.06);cursor:pointer;letter-spacing:.2px;display:inline-flex;align-items:center;gap:8px;transition:transform .18s,box-shadow .18s,filter .18s;box-shadow:0 6px 18px rgba(18,12,0,.10)}
+.btn-main:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(18,12,0,.14);filter:brightness(1.02)}
+.btn-ghost{color:rgba(245,240,245,.52);font-size:14px;font-weight:500;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:color .18s,background .18s;border-radius:12px;padding:8px 10px}
+.btn-ghost:hover{color:#F5F0F5;background:rgba(255,255,255,.02)}
+.btn-ghost svg{transition:transform .2s}
+.btn-ghost:hover svg{transform:translateX(3px)}
+.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);margin-top:40px;padding-top:28px;border-top:1px solid rgba(255,255,255,.08);opacity:0;transform:translateY(18px);transition:opacity .7s .88s,transform .7s .88s}
+.hero-stats.revealed{opacity:1;transform:translateY(0)}
+.hstat{padding:0 20px;border-right:1px solid rgba(255,255,255,.1)}
+.hstat:first-child{padding-left:0}
+.hstat:last-child{border-right:none;padding-right:0}
+.hstat-n{font-family:'Plus Jakarta Sans',sans-serif;font-size:26px;font-weight:800;color:var(--yellow);line-height:1;letter-spacing:-1px}
+.hstat-l{font-size:11px;color:rgba(245,240,245,.44);margin-top:5px;letter-spacing:.3px}
+.hero-right{position:relative;height:400px;opacity:0;transform:translateX(28px);transition:opacity .8s .48s,transform .8s .48s}
+.hero-right.revealed{opacity:1;transform:translateX(0)}
+.float-card{position:absolute;border-radius:22px;padding:20px 22px;backdrop-filter:blur(22px) saturate(125%);border:1px solid rgba(255,255,255,.14);background:linear-gradient(155deg,rgba(24,10,34,.88),rgba(11,4,18,.76));animation:floatCard 5.3s ease-in-out infinite;overflow:hidden}
+.float-card::before{content:'';position:absolute;left:16px;right:16px;top:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.42),transparent);opacity:.75;pointer-events:none}
+.float-card::after{content:'';position:absolute;inset:auto -30% -58% -30%;height:68%;background:radial-gradient(ellipse at center,rgba(255,255,255,.1),transparent 65%);pointer-events:none}
+.fc-deal{top:10px;right:-6px;width:254px;--rot:-1.9deg;border-color:rgba(255,208,31,.2);box-shadow:0 26px 62px rgba(0,0,0,.5),0 0 0 1px rgba(255,208,31,.08)}
+.fc-join{bottom:42px;left:-2px;width:212px;--rot:1.8deg;animation-delay:-2.6s;background:linear-gradient(150deg,rgba(232,67,90,.2),rgba(255,255,255,.08));border-color:rgba(232,67,90,.28);box-shadow:0 18px 46px rgba(232,67,90,.2),0 0 0 1px rgba(232,67,90,.1)}
+@keyframes floatCard{0%,100%{transform:rotate(var(--rot,0deg)) translateY(0)}50%{transform:rotate(var(--rot,0deg)) translateY(-12px)}}
+.fc-top{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.fc-icon{width:34px;height:34px;border-radius:11px;background:linear-gradient(135deg,var(--yellow),#FF9040);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#1A0000;box-shadow:0 6px 16px rgba(255,208,31,.28)}
+.fc-title{font-size:12px;font-weight:700;color:#F5F0F5;line-height:1.2}
+.fc-sub-s{font-size:11px;color:rgba(245,240,245,.48)}
+.fc-amount{font-family:'Plus Jakarta Sans',sans-serif;font-size:24px;font-weight:800;color:var(--yellow);letter-spacing:-0.5px;text-shadow:0 0 20px rgba(255,208,31,.2)}
+.fc-detail{font-size:11px;color:rgba(245,240,245,.42);margin-top:3px}
+.fc-avatars{display:flex;margin-bottom:8px}
+.fc-av{width:26px;height:26px;border-radius:50%;background:var(--pink);border:2px solid rgba(10,2,16,.82);display:flex;align-items:center;justify-content:center;color:#fff;font-size:9px;font-weight:700;margin-left:-6px;box-shadow:0 2px 6px rgba(0,0,0,.24)}
+.fc-av:first-child{margin-left:0}
+.fc-av:nth-child(2){background:#9C4AE8}
+.fc-av:nth-child(3){background:linear-gradient(135deg,var(--yellow),#FF9040);color:#1A0000}
+.fc-join-text{font-size:12px;color:rgba(255,190,206,.98);font-weight:800;line-height:1.35}
+.fc-join-sub{font-size:11px;color:rgba(245,240,245,.4);margin-top:3px}
+.hero-badge-float{position:absolute;top:46%;left:50%;transform:translate(-50%,-50%);background:linear-gradient(145deg,rgba(255,255,255,.18),rgba(232,67,90,.28));color:#FFEAF1;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:12px;padding:10px 18px;border-radius:14px;white-space:nowrap;letter-spacing:.3px;animation:badgeFloat 5.6s ease-in-out infinite -1s;box-shadow:0 12px 34px rgba(232,67,90,.24),0 0 0 1px rgba(232,67,90,.26);display:flex;align-items:center;gap:6px;border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(12px)}
+@keyframes badgeFloat{0%,100%{transform:translate(-50%,-50%) translateY(0)}50%{transform:translate(-50%,-50%) translateY(-8px)}}
+
+/* ══ LIGHT MODE HERO ══ */
+[data-theme="light"] .hero{background:#F5F0FF}
+[data-theme="light"] #hero-canvas{opacity:.28}
+[data-theme="light"] .hero-blob-1{opacity:.13}
+[data-theme="light"] .hero-blob-2{opacity:.08}
+[data-theme="light"] .hero-grid-bg{background-image:radial-gradient(rgba(0,0,0,.05) 1px,transparent 1px)}
+[data-theme="light"] .hero-stamp{-webkit-text-stroke-color:rgba(232,67,90,.045)}
+[data-theme="light"] .t-white{color:#0D0007}
+[data-theme="light"] .hero-eyebrow{background:rgba(232,67,90,.1);border-color:rgba(232,67,90,.25);color:rgba(180,90,0,.9)}
+[data-theme="light"] .hero-eyebrow-dot{background:var(--yd)}
+[data-theme="light"] .hero-sub{color:rgba(13,0,7,.62)}
+[data-theme="light"] .hero-stats{border-top-color:rgba(0,0,0,.1)}
+[data-theme="light"] .hstat{border-right-color:rgba(0,0,0,.1)}
+[data-theme="light"] .hstat-n{color:var(--yd)}
+[data-theme="light"] .hstat-l{color:rgba(13,0,7,.48)}
+[data-theme="light"] .btn-ghost{color:rgba(13,0,7,.5)}
+[data-theme="light"] .btn-ghost:hover{color:#0D0007}
+[data-theme="light"] .float-card{background:linear-gradient(160deg,rgba(255,255,255,.96),rgba(248,241,251,.84));border-color:rgba(232,67,90,.16)}
+[data-theme="light"] .fc-deal{box-shadow:0 20px 58px rgba(64,28,44,.16),0 0 0 1px rgba(255,208,31,.22)}
+[data-theme="light"] .fc-join{background:linear-gradient(160deg,rgba(255,241,246,.86),rgba(255,255,255,.72));border-color:rgba(232,67,90,.22);box-shadow:0 14px 36px rgba(232,67,90,.14),0 0 0 1px rgba(232,67,90,.08)}
+[data-theme="light"] .fc-title{color:#0D0007}
+[data-theme="light"] .fc-sub-s{color:rgba(13,0,7,.48)}
+[data-theme="light"] .fc-detail{color:rgba(13,0,7,.42)}
+[data-theme="light"] .fc-join-sub{color:rgba(13,0,7,.45)}
+[data-theme="light"] .fc-amount{color:var(--yd);text-shadow:none}
+[data-theme="light"] .fc-join-text{color:#D73964}
+[data-theme="light"] .hero-badge-float{background:linear-gradient(145deg,rgba(255,255,255,.95),rgba(255,236,242,.88));color:#D22C5A;border-color:rgba(232,67,90,.24);box-shadow:0 12px 28px rgba(232,67,90,.16),0 0 0 1px rgba(232,67,90,.12)}
+
+/* ══ TICKER ══ */
+.ticker{background:var(--yellow);overflow:hidden}
+.ticker-row{display:flex;padding:11px 0}
+.ticker-row+.ticker-row{border-top:1px solid rgba(26,0,0,.09)}
+.ticker-track{display:flex;animation:tickL 24s linear infinite;white-space:nowrap;will-change:transform}
+.ticker-row:nth-child(2) .ticker-track{animation-direction:reverse;animation-duration:32s}
+.ticker-item{display:inline-flex;align-items:center;gap:8px;padding:0 26px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:13px;color:#1A0000;letter-spacing:.4px;border-right:1.5px solid rgba(26,0,0,.14)}
+@keyframes tickL{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.tick-dot{width:6px;height:6px;border-radius:50%;background:var(--pink);flex-shrink:0}
+.tick-check{width:14px;height:14px;flex-shrink:0;color:var(--pink)}
+
+/* ══ WHY ══ */
+.why{background:var(--why-bg);padding:96px 48px;position:relative;overflow:hidden;transition:background .3s}
+.why-inner{max-width:1160px;margin:0 auto}
+.section-eyebrow{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--pink);margin-bottom:14px;display:block}
+.section-title{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(30px,4.2vw,52px);line-height:1.06;letter-spacing:-1.5px;color:var(--why-text);margin-bottom:14px}
+.section-title em{font-style:normal;color:var(--pink)}
+.section-sub{font-size:16px;color:var(--why-muted);line-height:1.72;max-width:480px;margin-bottom:52px}
+.why-grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto auto;gap:18px}
+.why-card{border-radius:20px;padding:32px;position:relative;overflow:hidden;transition:box-shadow .32s;transform-style:preserve-3d}
+.why-card::after{content:'';position:absolute;inset:0;border-radius:20px;background:linear-gradient(135deg,rgba(255,255,255,.07),transparent 55%);pointer-events:none}
+.wc1{background:#0D0007;color:#F5F0F5;grid-row:1/3;display:flex;flex-direction:column}
+.wc2{background:var(--yellow)}
+.wc3{background:var(--pink)}
+.wc4{background:#EDE5F5;grid-column:1/3}
+[data-theme="light"] .wc4{background:#E6DEF0}
+.wc-icon{width:48px;height:48px;border-radius:13px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;flex-shrink:0}
+.wc1 .wc-icon{background:rgba(255,208,31,.15);color:var(--yellow)}
+.wc2 .wc-icon{background:rgba(26,0,0,.1);color:#1A0000}
+.wc3 .wc-icon{background:rgba(255,255,255,.18);color:#fff}
+.wc4 .wc-icon{background:rgba(232,67,90,.12);color:var(--pink)}
+.wc-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:20px;font-weight:800;margin-bottom:9px;line-height:1.2;letter-spacing:-.3px}
+.wc1 .wc-title{color:var(--yellow)}
+.wc2 .wc-title,.wc2 .wc-text{color:#1A0000}
+.wc3 .wc-title{color:#fff}
+.wc4 .wc-title{color:#0D0007}
+.wc-text{font-size:14px;line-height:1.72;color:rgba(245,240,245,.72)}
+.wc2 .wc-text{color:rgba(26,0,0,.72)}
+.wc3 .wc-text{color:rgba(255,255,255,.8)}
+.wc4 .wc-text{color:#6B5B70}
+.wc1 .wc-bottom{margin-top:auto;padding-top:24px;border-top:1px solid rgba(255,255,255,.1)}
+.wc1-stat{font-family:'Plus Jakarta Sans',sans-serif;font-size:44px;font-weight:800;color:var(--yellow);line-height:1;letter-spacing:-2px}
+.wc1-stat-l{font-size:12px;color:rgba(245,240,245,.45);margin-top:4px}
+.wc4-inner{display:grid;grid-template-columns:1fr 1fr 1fr;gap:28px}
+.wc4-feat{display:flex;align-items:flex-start;gap:12px}
+.wc4-feat-icon{width:38px;height:38px;border-radius:10px;background:rgba(232,67,90,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--pink)}
+.wc4-feat-title{font-size:14px;font-weight:700;color:#0D0007;margin-bottom:3px}
+.wc4-feat-text{font-size:13px;color:#6B5B70;line-height:1.55}
+
+/* ══════════════════════════════
+   STATS BELT — FIXED
+══════════════════════════════ */
+.stats-belt{background:var(--bg);padding:76px 48px;border-top:1px solid var(--divider);transition:background .3s}
+.stats-inner{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr)}
+.stat-item{text-align:center;padding:0 20px;border-right:1px solid var(--stat-div)}
+.stat-item:last-child{border-right:none}
+
+/* ── THE FIX: direct color, no gradient clip that breaks rendering ── */
+.stat-num{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:clamp(38px,5vw,60px);
+  font-weight:800;
+  line-height:1;
+  letter-spacing:-2px;
+  color:var(--yellow);        /* solid fallback always visible */
+}
+
+/* Gradient only where clip-path is well supported */
+@supports (-webkit-background-clip: text) {
+  .stat-num{
+    background:linear-gradient(135deg,var(--yellow),var(--pink));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+    color:transparent;
+  }
+}
+
+/* Light mode override */
+[data-theme="light"] .stat-num{
+  color:var(--yd);
+}
+@supports (-webkit-background-clip: text) {
+  [data-theme="light"] .stat-num{
+    background:linear-gradient(135deg,var(--yd),var(--pink));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+    color:transparent;
+  }
+}
+
+.stat-suffix{font-size:.55em;font-weight:800}
+.stat-label{font-size:12px;color:var(--muted);margin-top:8px;letter-spacing:.4px}
+
+/* Slide-up entrance for each stat */
+.stat-item{
+  opacity:0;
+  transform:translateY(28px);
+  transition:opacity .6s cubic-bezier(.16,1,.3,1), transform .6s cubic-bezier(.16,1,.3,1);
+}
+.stat-item.counted{opacity:1;transform:translateY(0)}
+.stat-item:nth-child(1){transition-delay:.05s}
+.stat-item:nth-child(2){transition-delay:.15s}
+.stat-item:nth-child(3){transition-delay:.25s}
+.stat-item:nth-child(4){transition-delay:.35s}
+
+/* ══ HOW ══ */
+.how{background:var(--how-bg);padding:96px 48px;transition:background .3s}
+.how-inner{max-width:1160px;margin:0 auto}
+.how-header{margin-bottom:64px}
+.how-header .section-title{color:var(--text)}
+.how-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--how-grid-sep)}
+.how-step{background:var(--how-bg);padding:44px 36px;position:relative;overflow:hidden;transition:background .25s}
+.how-step:hover{background:var(--how-hover)}
+.how-bg-num{position:absolute;bottom:-16px;right:-8px;font-family:'Plus Jakarta Sans',sans-serif;font-size:140px;font-weight:800;color:rgba(255,255,255,.025);line-height:1;pointer-events:none;user-select:none;letter-spacing:-4px}
+[data-theme="light"] .how-bg-num{color:rgba(0,0,0,.04)}
+.how-num{font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--pink);margin-bottom:18px;display:flex;align-items:center;gap:10px}
+.how-num::after{content:'';flex:1;height:1px;background:rgba(232,67,90,.2)}
+.how-step-icon{width:48px;height:48px;border-radius:13px;background:rgba(232,67,90,.1);border:1px solid rgba(232,67,90,.2);display:flex;align-items:center;justify-content:center;color:var(--pink);margin-bottom:18px}
+.how-step-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:20px;font-weight:800;margin-bottom:10px;color:var(--text);letter-spacing:-.3px}
+.how-step-text{font-size:14px;color:var(--muted);line-height:1.72}
+
+/* ══ FORM ══ */
+.form-sec{background:var(--form-bg);padding:96px 48px;position:relative;overflow:hidden;transition:background .3s}
+.form-sec::before{content:'';position:absolute;top:-220px;right:-180px;width:640px;height:640px;border-radius:50%;background:radial-gradient(circle,rgba(232,67,90,.1),transparent 70%);pointer-events:none}
+.form-sec::after{content:'';position:absolute;bottom:-200px;left:-160px;width:560px;height:560px;border-radius:50%;background:radial-gradient(circle,rgba(255,208,31,.07),transparent 70%);pointer-events:none}
+.form-inner{max-width:880px;margin:0 auto;position:relative;z-index:1}
+.form-header{margin-bottom:52px;text-align:center}
+.form-header .section-title{color:var(--text)}
+.form-header .section-title em{color:var(--yellow)}
+.form-header .section-sub{color:var(--muted);text-align:center;margin:0 auto}
+.form-body{
+  position:relative;border-radius:26px;padding:52px 52px 48px;
+  border:1px solid transparent;
+  background:linear-gradient(var(--form-body-bg),var(--form-body-bg)) padding-box,
+             linear-gradient(135deg,rgba(232,67,90,.42) 0%,rgba(255,208,31,.28) 50%,rgba(232,67,90,.22) 100%) border-box;
+  backdrop-filter:blur(16px);
+  box-shadow:0 32px 80px rgba(0,0,0,.35),0 8px 24px rgba(232,67,90,.06);
+  transition:box-shadow .3s;
+}
+.form-body:hover{box-shadow:0 36px 88px rgba(0,0,0,.4),0 8px 32px rgba(232,67,90,.1)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 36px;align-items:start}
+.full{grid-column:1/-1}
+.form-sec-head{grid-column:1/-1;display:flex;align-items:center;gap:12px;padding:22px 0 10px;margin-top:6px}
+.form-sec-head:first-child{padding-top:0;margin-top:0}
+.fshn{font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;font-weight:800;letter-spacing:2px;color:var(--pink);background:rgba(232,67,90,.1);border:1px solid rgba(232,67,90,.2);border-radius:50px;padding:3px 11px;flex-shrink:0}
+.fsht{font-size:11px;font-weight:700;letter-spacing:2.2px;text-transform:uppercase;color:var(--fshead-col);flex-shrink:0}
+.fsh-line{flex:1;height:1px;background:var(--divider)}
+.field{padding:18px 0;border-bottom:1px solid var(--input-div);position:relative}
+.field:last-of-type{border-bottom:none}
+.field label{display:block;font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-bottom:7px;transition:color .2s}
+.field:focus-within label{color:var(--yellow)}
+[data-theme="light"] .field:focus-within label{color:var(--yd)}
+span.req{color:var(--pink)}
+.field input,.field select,.field textarea{width:100%;background:transparent;border:none;outline:none;color:var(--input-col);font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;font-weight:500;padding:0;transition:color .2s;appearance:none}
+.field input::placeholder,.field textarea::placeholder{color:var(--input-ph)}
+.field select{cursor:pointer}
+.field select option{background:var(--opt-bg);color:var(--input-col)}
+.field textarea{resize:vertical;min-height:78px}
+.field-bar{position:absolute;bottom:-1px;left:0;width:0;height:2px;background:linear-gradient(90deg,var(--yellow),var(--pink));transition:width .32s cubic-bezier(.16,1,.3,1)}
+.field:focus-within .field-bar{width:100%}
+.field.err .field-bar{background:var(--pink);width:100%}
+.field-err{font-size:11px;color:var(--pink);margin-top:5px;display:none}
+.field-err.on{display:block}
+.fhint{font-size:11px;color:var(--hint);margin-top:4px}
+.form-divider{height:1px;background:var(--divider);grid-column:1/-1;margin:4px 0}
+.lang-wrap{display:flex;flex-wrap:wrap;gap:7px;margin-top:4px}
+.lchip input{position:absolute;opacity:0;width:0;height:0}
+.lchip{position:relative}
+.lchip-l{display:inline-block;padding:6px 14px;border-radius:50px;border:1.5px solid var(--lang-border);font-size:12px;font-weight:600;color:var(--lang-col);cursor:pointer;transition:all .18s;user-select:none}
+.lchip input:checked+.lchip-l{background:var(--yellow);border-color:var(--yellow);color:#1A0000;font-weight:700;transform:scale(1.04)}
+.lchip-l:hover{border-color:var(--yellow);color:var(--yellow)}
+[data-theme="light"] .lchip-l:hover{color:var(--yd);border-color:var(--yd)}
+.form-submit-wrap{margin-top:36px}
+#submitBtn{
+  background:linear-gradient(135deg,var(--pink) 0%,#FF7A3C 45%,var(--yellow) 100%);
+  background-size:200% 200%;background-position:0% 50%;
+  color:#1A0000;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:16px;
+  letter-spacing:.4px;border:none;border-radius:12px;padding:16px 40px;cursor:pointer;
+  width:100%;display:flex;align-items:center;justify-content:center;gap:9px;
+  transition:transform .2s,box-shadow .2s,background-position .4s,filter .18s;
+  box-shadow:0 10px 30px rgba(18,12,0,.10);
+}
+#submitBtn:hover:not(:disabled){
+  transform:translateY(-2px);background-position:100% 50%;
+  box-shadow:0 14px 40px rgba(18,12,0,.12),0 0 0 1px rgba(255,208,31,.08);
+}
+#submitBtn:disabled{opacity:.55;cursor:not-allowed}
+.form-note{font-size:12px;color:var(--fnote);text-align:center;margin-top:14px;display:flex;align-items:center;justify-content:center;gap:5px}
+.btn-spin{width:19px;height:19px;border-radius:50%;border:3px solid rgba(26,0,0,.2);border-top-color:#1A0000;animation:spin .7s linear infinite;display:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+.form-success{display:none;text-align:center;padding:72px 32px}
+.form-success.on{display:block}
+.fs-icon{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--pink),var(--yellow));display:flex;align-items:center;justify-content:center;color:#fff;margin:0 auto 24px;animation:popIn .5s cubic-bezier(.34,1.56,.64,1);box-shadow:0 12px 40px rgba(232,67,90,.38)}
+@keyframes popIn{0%{transform:scale(0) rotate(-15deg)}100%{transform:scale(1) rotate(0)}}
+.fs-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:30px;font-weight:800;color:var(--text);margin-bottom:12px;letter-spacing:-.5px}
+.fs-sub{font-size:16px;color:var(--muted);line-height:1.72}
+.fs-sub strong{color:var(--yellow)}
+
+/* ══ FOOTER ══ */
+footer{background:var(--footer-bg);padding:48px;border-top:1px solid var(--footer-border);transition:background .3s}
+.footer-inner{max-width:1160px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px}
+.footer-logo img{height:56px;filter:var(--logo-filter);transition:filter .3s}
+[data-theme="light"] .footer-logo img{mix-blend-mode:multiply}
+.footer-right{font-size:13px;color:var(--footer-txt);text-align:right}
+.footer-right a{color:var(--pink);text-decoration:none}
+.footer-right a:hover{color:var(--yellow)}
+
+/* ══ CUSTOM SELECT ══ */
+.csel{position:relative;width:100%;user-select:none}
+.csel-trigger{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:2px 0;min-height:24px;cursor:pointer}
+.csel-text{font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;font-weight:500;color:var(--input-ph);line-height:1.4;transition:color .2s}
+.csel-text.has-val{color:var(--input-col)}
+.csel-chevron{color:var(--muted);flex-shrink:0;transition:transform .28s cubic-bezier(.16,1,.3,1),color .2s}
+.csel.open .csel-chevron{transform:rotate(180deg);color:var(--yellow)}
+[data-theme="light"] .csel.open .csel-chevron{color:var(--yd)}
+.csel-drop{
+  position:absolute;left:0;right:0;top:calc(100% + 10px);z-index:300;
+  background:var(--opt-bg);border:1px solid rgba(232,67,90,.22);
+  border-radius:16px;padding:6px;
+  box-shadow:0 24px 52px rgba(0,0,0,.42),0 0 0 1px rgba(255,255,255,.04),inset 0 1px 0 rgba(255,255,255,.06);
+  backdrop-filter:blur(24px);
+  opacity:0;visibility:hidden;transform:translateY(-10px) scale(.97);
+  transition:opacity .22s,transform .26s cubic-bezier(.16,1,.3,1),visibility 0s .26s;
+  max-height:228px;overflow-y:auto;
+  scrollbar-width:thin;scrollbar-color:rgba(232,67,90,.35) transparent;
+}
+.csel-drop::-webkit-scrollbar{width:4px}
+.csel-drop::-webkit-scrollbar-track{background:transparent}
+.csel-drop::-webkit-scrollbar-thumb{background:rgba(232,67,90,.35);border-radius:4px}
+.csel.open .csel-drop{opacity:1;visibility:visible;transform:translateY(0) scale(1);transition:opacity .22s,transform .26s cubic-bezier(.16,1,.3,1),visibility 0s}
+.csel-opt{padding:10px 14px;border-radius:10px;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:500;color:var(--text);cursor:pointer;transition:background .15s,color .15s;display:flex;align-items:center}
+.csel-opt:hover{background:rgba(232,67,90,.1);color:var(--pink)}
+.csel-opt.chosen{background:var(--yellow);color:#1A0000;font-weight:700}
+.csel-opt.chosen::after{content:'✓';margin-left:auto;font-size:13px;font-weight:800}
+[data-theme="light"] .csel-drop{background:#F0EAF8;border-color:rgba(232,67,90,.18);box-shadow:0 16px 40px rgba(0,0,0,.1),0 0 0 1px rgba(0,0,0,.04)}
+[data-theme="light"] .csel-opt:hover{background:rgba(232,67,90,.08);color:var(--pink)}
+
+/* ══ REVEAL ══ */
+.rv{opacity:0;transform:translateY(32px);transition:opacity .68s cubic-bezier(.16,1,.3,1),transform .68s cubic-bezier(.16,1,.3,1)}
+.rv.on{opacity:1;transform:translateY(0)}
+.rv1{transition-delay:.1s}.rv2{transition-delay:.19s}.rv3{transition-delay:.28s}.rv4{transition-delay:.37s}
+.rv-l{opacity:0;transform:translateX(-48px);transition:opacity .72s cubic-bezier(.16,1,.3,1),transform .72s cubic-bezier(.16,1,.3,1)}
+.rv-l.on{opacity:1;transform:translateX(0)}
+.rv-r{opacity:0;transform:translateX(48px);transition:opacity .72s cubic-bezier(.16,1,.3,1),transform .72s cubic-bezier(.16,1,.3,1)}
+.rv-r.on{opacity:1;transform:translateX(0)}
+.rv-l.rv1,.rv-r.rv1{transition-delay:.1s}.rv-l.rv2,.rv-r.rv2{transition-delay:.19s}.rv-l.rv3,.rv-r.rv3{transition-delay:.28s}
+
+/* ══ HERO SPOTLIGHT ══ */
+#hero-spotlight{position:absolute;inset:0;z-index:2;pointer-events:none;opacity:0;transition:opacity .4s;background:radial-gradient(520px circle at 50% 50%,rgba(232,67,90,.065),rgba(255,208,31,.03) 40%,transparent 65%)}
+  
+/* ══ FORM PROGRESS ══ */
+.form-prog{position:absolute;top:0;left:0;right:0;height:4px;background:rgba(255,255,255,.05);border-radius:25px 25px 0 0;overflow:hidden;z-index:5}
+[data-theme="light"] .form-prog{background:rgba(0,0,0,.06)}
+.form-prog-fill{height:100%;width:0;background:linear-gradient(90deg,var(--pink),#FF7A3C,var(--yellow));transition:width .45s cubic-bezier(.16,1,.3,1);box-shadow:0 0 10px rgba(255,208,31,.45)}
+
+/* ══ HAMBURGER ══ */
+#ham-btn{display:none;flex-direction:column;gap:5px;align-items:center;justify-content:center;width:38px;height:38px;background:none;border:1.5px solid var(--border);border-radius:50px;cursor:pointer;padding:0;flex-shrink:0;transition:border-color .2s}
+#ham-btn:hover{border-color:var(--pink)}
+#ham-btn span{display:block;width:16px;height:1.5px;background:var(--text);border-radius:2px;transition:transform .32s cubic-bezier(.16,1,.3,1),opacity .2s,width .2s}
+#ham-btn.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+#ham-btn.open span:nth-child(2){opacity:0;width:0}
+#ham-btn.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+
+/* ══ MOBILE NAV ══ */
+#mob-nav{position:fixed;inset:0;z-index:1998;pointer-events:none}
+#mob-overlay{position:absolute;inset:0;background:rgba(8,0,10,.72);opacity:0;transition:opacity .35s;backdrop-filter:blur(6px)}
+#mob-panel{position:absolute;top:0;right:0;bottom:0;width:min(300px,82vw);background:var(--bg2);border-left:1px solid var(--border);padding:80px 28px 44px;display:flex;flex-direction:column;gap:4px;transform:translateX(100%);transition:transform .42s cubic-bezier(.16,1,.3,1)}
+#mob-nav.on{pointer-events:auto}
+#mob-nav.on #mob-overlay{opacity:1}
+#mob-nav.on #mob-panel{transform:translateX(0)}
+.mob-link{display:block;font-size:18px;font-weight:700;color:var(--text);text-decoration:none;padding:14px 0;border-bottom:1px solid var(--divider);transition:color .2s,padding-left .2s}
+.mob-link:hover{color:var(--pink);padding-left:8px}
+.mob-apply{display:block;margin-top:28px;text-align:center;background:var(--yellow);color:#1A0000;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:15px;padding:12px;border-radius:12px;text-decoration:none;border:1px solid rgba(0,0,0,.06);transition:transform .18s,box-shadow .18s}
+.mob-apply:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(18,12,0,.12)}
+
+/* ══ FULLSCREEN CONFETTI CANVAS ══ */
+#cf-canvas{position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:0;transition:opacity .25s;display:block}
+
+/* ══ RESPONSIVE ══ */
+@media(max-width:900px){
+  nav{padding:12px 20px}
+  #ham-btn{display:flex}
+  .nav-cta{display:none}
+  .nav-link{display:none}
+  .hero{padding:100px 20px 64px;background:#08000A}
+  .hero-inner{grid-template-columns:1fr}
+  .hero-right{display:none}
+  .hero-stamp{display:none}
+  .hero-stats{grid-template-columns:repeat(3,1fr)}
+  .hstat{padding:0 12px}.hstat:first-child{padding-left:0}.hstat:last-child{padding-right:0}
+  .why,.stats-belt,.how,.form-sec{padding:64px 20px}
+  .why-grid{grid-template-columns:1fr}
+  .wc1{grid-row:auto}.wc4{grid-column:auto}
+  .wc4-inner{grid-template-columns:1fr}
+  .stats-inner{grid-template-columns:1fr 1fr;gap:36px}
+  .stat-item{border-right:none;padding:0}
+  .how-steps{grid-template-columns:1fr}
+  .form-body{padding:28px 20px}
+  .form-grid{grid-template-columns:1fr}
+  .full{grid-column:auto}
+  .form-sec-head{grid-column:auto}
+  footer{padding:36px 20px}
+  .footer-inner{flex-direction:column;align-items:flex-start}
+  .footer-right{text-align:left}
+}
+
+/* ══ STEP INDICATOR ══ */
+.step-indicator{display:flex;align-items:center;justify-content:center;margin-bottom:40px}
+.step-dot{display:flex;flex-direction:column;align-items:center;gap:7px;cursor:default}
+.step-dot-circle{width:38px;height:38px;border-radius:50%;border:2px solid var(--border);background:var(--form-body-bg);display:flex;align-items:center;justify-content:center;font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:800;color:var(--muted);transition:all .35s cubic-bezier(.16,1,.3,1)}
+.step-dot.active .step-dot-circle{border-color:var(--pink);background:linear-gradient(135deg,var(--pink),var(--yellow));color:#1A0000;box-shadow:0 0 24px rgba(232,67,90,.4)}
+.step-dot.done .step-dot-circle{border-color:var(--yellow);background:var(--yellow);color:#1A0000}
+.step-lbl{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);transition:color .3s;white-space:nowrap}
+.step-dot.active .step-lbl{color:var(--text)}
+.step-dot.done .step-lbl{color:var(--yellow)}
+.step-conn{flex:1;height:2px;background:var(--divider);min-width:32px;max-width:72px;margin-bottom:25px;transition:background .4s}
+.step-conn.done{background:linear-gradient(90deg,var(--yellow),var(--pink))}
+/* ══ FORM STEPS ══ */
+.form-step{display:none}
+.form-step.active{display:block;animation:stepIn .4s cubic-bezier(.16,1,.3,1)}
+@keyframes stepIn{from{opacity:0;transform:translateX(22px)}to{opacity:1;transform:translateX(0)}}
+.btn-next{background:linear-gradient(135deg,var(--pink) 0%,#FF7A3C 45%,var(--yellow) 100%);background-size:200% 200%;background-position:0% 50%;color:#1A0000;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:16px;letter-spacing:.4px;border:none;border-radius:12px;padding:16px 40px;cursor:pointer;width:100%;display:flex;align-items:center;justify-content:center;gap:9px;margin-top:32px;transition:transform .2s,box-shadow .2s,background-position .4s;box-shadow:0 10px 30px rgba(18,12,0,.10)}
+.btn-next:hover{transform:translateY(-2px);background-position:100% 50%;box-shadow:0 14px 40px rgba(18,12,0,.12)}
+/* ══ NICHE OTHER ══ */
+#niche-other-wrap{display:none;margin-top:10px}
+#niche-other-wrap.show{display:block;animation:acFadeIn .25s ease}
+@keyframes acFadeIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+/* ══ EXIT POPUP ══ */
+#exit-popup{position:fixed;inset:0;z-index:9994;display:none;align-items:center;justify-content:center;padding:20px}
+#exit-popup.show{display:flex}
+.exit-bd{position:absolute;inset:0;background:rgba(8,0,10,.86);backdrop-filter:blur(10px)}
+.exit-card{position:relative;z-index:1;background:var(--form-body-bg);border:1px solid rgba(232,67,90,.32);border-radius:26px;padding:44px 40px;max-width:430px;width:100%;text-align:center;box-shadow:0 50px 100px rgba(0,0,0,.65),0 0 0 1px rgba(255,255,255,.04),inset 0 1px 0 rgba(255,255,255,.06);animation:popIn .42s cubic-bezier(.34,1.56,.64,1)}
+.exit-emoji{font-size:56px;margin-bottom:16px;display:block;line-height:1}
+.exit-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:24px;font-weight:800;color:var(--text);letter-spacing:-.5px;margin-bottom:8px}
+.exit-sub{font-size:14px;color:var(--muted);line-height:1.68;margin-bottom:28px}
+.exit-btns{display:flex;gap:12px}
+.exit-stay{flex:1;background:linear-gradient(135deg,var(--pink),var(--yellow));color:#1A0000;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:14px;padding:14px;border-radius:12px;border:none;cursor:pointer;transition:transform .18s,box-shadow .18s;box-shadow:0 8px 20px rgba(232,67,90,.3)}
+.exit-stay:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(232,67,90,.4)}
+.exit-go{flex:1;background:transparent;color:var(--muted);font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;font-size:14px;padding:14px;border-radius:12px;border:1.5px solid var(--border);cursor:pointer;transition:all .18s}
+.exit-go:hover{color:var(--text);border-color:rgba(255,255,255,.22);background:rgba(255,255,255,.04)}
+/* ══ COLLEGE AUTOCOMPLETE ══ */
+.ac-wrap{position:relative}
+.ac-drop{position:absolute;left:0;right:0;top:calc(100% + 8px);z-index:400;background:var(--opt-bg);border:1px solid rgba(232,67,90,.22);border-radius:14px;padding:6px;box-shadow:0 22px 50px rgba(0,0,0,.44);backdrop-filter:blur(20px);max-height:218px;overflow-y:auto;display:none;scrollbar-width:thin;scrollbar-color:rgba(232,67,90,.35) transparent}
+.ac-drop.show{display:block}
+.ac-drop::-webkit-scrollbar{width:4px}
+.ac-drop::-webkit-scrollbar-track{background:transparent}
+.ac-drop::-webkit-scrollbar-thumb{background:rgba(232,67,90,.35);border-radius:4px}
+.ac-item{padding:9px 14px;border-radius:10px;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:500;color:var(--text);cursor:pointer;transition:background .15s}
+.ac-item:hover,.ac-item.ac-focused{background:rgba(232,67,90,.1);color:var(--pink)}
+.ac-item mark{background:none;color:var(--yellow);font-weight:700}
+[data-theme="light"] .ac-drop{background:#F0EAF8;border-color:rgba(232,67,90,.18);box-shadow:0 16px 40px rgba(0,0,0,.1)}
+@media(max-width:900px){.step-conn{min-width:16px;max-width:36px}.step-lbl{font-size:9px;letter-spacing:.8px}.step-dot-circle{width:32px;height:32px;font-size:11px}.exit-card{padding:32px 24px}.exit-btns{flex-direction:column}}
+</style>
+</head>
+<body class="loading">
+
+<div class="grain"></div>
+<div id="sprog"></div>
+<div id="cdot"></div>
+<div id="cring"></div>
+<canvas id="cf-canvas"></canvas>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="ld-door ld-door-t"></div>
+  <div class="ld-door ld-door-b"></div>
+  <div class="ld-rings">
+    <div class="ld-bg-glow"></div>
+    <div class="ld-ring-track ld-rt1"></div>
+    <div class="ld-ring-track ld-rt2"></div>
+    <div class="ld-ring-track ld-rt3"></div>
+    <div class="ld-ring ld-r1"></div>
+    <div class="ld-ring ld-r2"></div>
+    <div class="ld-ring ld-r3"></div>
+  </div>
+  <div class="ld-dot"></div>
+  <div class="ld-inner">
+    <img src="logos/logo-04.png" class="ld-logo" id="ld-logo" alt="VigorSpace"/>
+    <div class="ld-count" id="ld-count">3</div>
+    <div class="ld-label" id="ld-label">YOUR COLLAB ERA STARTS</div>
+    <div class="ld-bar-wrap" id="ld-bar-wrap"><div class="ld-bar" id="ld-bar"></div></div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo"><img src="logos/logo-04.png" id="nav-logo-img" alt="VigorSpace"/></a>
+  <div class="nav-links">
+    <a href="#why" class="nav-link">Why Us</a>
+    <a href="#how" class="nav-link">How It Works</a>
+    <button class="theme-btn" id="themeBtn" aria-label="Toggle theme">
+      <svg id="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      <svg id="icon-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+    <button id="ham-btn" aria-label="Open menu"><span></span><span></span><span></span></button>
+    <a href="#apply" class="nav-cta magnetic">
+      Apply Now
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-grid-bg"></div>
+  <div id="hero-spotlight"></div>
+  <div class="hero-stamp">VIGOR</div>
+  <div class="hero-blob hero-blob-1"></div>
+  <div class="hero-blob hero-blob-2"></div>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span class="hero-eyebrow-dot"></span>
+        Limited Creator Onboarding
+      </div>
+      <h1 class="hero-title">
+        <span class="ln"><span class="lni t-white">TURN YOUR</span></span>
+        <span class="ln"><span class="lni t-yellow">CONTENT</span></span>
+        <span class="ln"><span class="lni t-white">INTO</span></span>
+        <span class="ln"><span class="lni t-outline glitch-word">COLLABS.</span></span>
+      </h1>
+      <p class="hero-sub">For college creators ready to partner with real brands, earn from their content, and build a name while still in college.</p>
+      <div class="hero-actions">
+        <a href="#apply" class="btn-main magnetic">
+          Apply — It's Free
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </a>
+        <a href="#how" class="btn-ghost">
+          See how it works
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+      <div class="hero-stats">
+          <div class="hstat"><div class="hstat-n">100+</div><div class="hstat-l">Brands</div></div>
+          <div class="hstat"><div class="hstat-n">15k+</div><div class="hstat-l">Creators</div></div>
+          <div class="hstat"><div class="hstat-n">₹225M+</div><div class="hstat-l">Earnings</div></div>
+      </div>
+    </div>
+    <div class="hero-right" id="hero-right">
+      <div class="float-card fc-deal">
+        <div class="fc-top">
+          <div class="fc-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+          </div>
+          <div><div class="fc-title">New Deal Incoming</div><div class="fc-sub-s">FashionBrand × @yourhandle</div></div>
+        </div>
+        <div class="fc-amount">₹15,000</div>
+        <div class="fc-detail">Reel + Story pack · 3 posts</div>
+      </div>
+      <div class="hero-badge-float">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        Limited Spots Left
+      </div>
+      <div class="float-card fc-join">
+        <div class="fc-avatars">
+          <div class="fc-av">A</div>
+          <div class="fc-av">K</div>
+          <div class="fc-av">R</div>
+        </div>
+        <div class="fc-join-text">+47 creators joined this week</div>
+        <div class="fc-join-sub">From 18+ colleges across India</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-row">
+    <div class="ticker-track">
+      <div class="ticker-item"><span class="tick-dot"></span>Fashion &amp; Lifestyle</div>
+      <div class="ticker-item"><span class="tick-dot"></span>Tech &amp; Gadgets</div>
+      <div class="ticker-item"><span class="tick-dot"></span>Food &amp; Beverages</div>
+      <div class="ticker-item"><span class="tick-dot"></span>EdTech</div>
+      <div class="ticker-item"><span class="tick-dot"></span>Beauty &amp; Wellness</div>
+      <div class="ticker-item"><span class="tick-dot"></span>Gaming</div>
+      <div class="ticker-item"><span class="tick-dot"></span>Fintech</div>
+      <div class="ticker-item"><span class="tick-dot"></span>Health &amp; Fitness</div>
+      <div class="ticker-item"><span class="tick-dot"></span>Fashion &amp; Lifestyle</div>
+      <div class="ticker-item"><span class="tick-dot"></span>Tech &amp; Gadgets</div>
+      <div class="ticker-item"><span class="tick-dot"></span>Food &amp; Beverages</div>
+      <div class="ticker-item"><span class="tick-dot"></span>EdTech</div>
+      <div class="ticker-item"><span class="tick-dot"></span>Beauty &amp; Wellness</div>
+      <div class="ticker-item"><span class="tick-dot"></span>Gaming</div>
+      <div class="ticker-item"><span class="tick-dot"></span>Fintech</div>
+      <div class="ticker-item"><span class="tick-dot"></span>Health &amp; Fitness</div>
+    </div>
+  </div>
+  <div class="ticker-row">
+    <div class="ticker-track">
+      <div class="ticker-item"><svg class="tick-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Get Paid</div>
+      <div class="ticker-item"><svg class="tick-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Real Brands</div>
+      <div class="ticker-item"><svg class="tick-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>College Creators Only</div>
+      <div class="ticker-item"><svg class="tick-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Instant Matching</div>
+      <div class="ticker-item"><svg class="tick-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Free to Join</div>
+      <div class="ticker-item"><svg class="tick-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Creator Support</div>
+      <div class="ticker-item"><svg class="tick-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Multiple Platforms</div>
+      <div class="ticker-item"><svg class="tick-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Get Paid</div>
+      <div class="ticker-item"><svg class="tick-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Real Brands</div>
+      <div class="ticker-item"><svg class="tick-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>College Creators Only</div>
+      <div class="ticker-item"><svg class="tick-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Instant Matching</div>
+      <div class="ticker-item"><svg class="tick-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Free to Join</div>
+      <div class="ticker-item"><svg class="tick-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Creator Support</div>
+      <div class="ticker-item"><svg class="tick-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Multiple Platforms</div>
+    </div>
+  </div>
+</div>
+
+<!-- WHY -->
+<section class="why" id="why">
+  <div class="why-inner">
+    <div class="rv-l">
+      <span class="section-eyebrow">Why VigorSpace</span>
+      <h2 class="section-title">Built for creators who are <em>just getting started</em></h2>
+      <p class="section-sub">You don't need a million followers. You need the right platform, the right brands, and the right support — that's us.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card wc1 rv-l rv1">
+        <div class="wc-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
+        <div class="wc-title">Real Brand Deals,<br/>Not Fake Promises</div>
+        <p class="wc-text">We partner with actual brands that have budgets. Get paid campaigns, free products, and long-term collaborations — not just "exposure."</p>
+        <div class="wc-bottom">
+          <div class="wc1-stat" data-count="100">0+</div>
+          <div class="wc1-stat-l">Active brand partners</div>
+        </div>
+      </div>
+      <div class="why-card wc2 rv-r rv2">
+        <div class="wc-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
+        <div class="wc-title">Grow While You Earn</div>
+        <p class="wc-text">Access exclusive content workshops, briefs, and creator feedback — get better at what you love while earning from it.</p>
+      </div>
+      <div class="why-card wc3 rv-r rv3">
+        <div class="wc-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <div class="wc-title">Campus Community</div>
+        <p class="wc-text">Connect with 500+ creators across India. Collab, cross-promote, and build your network before you even graduate.</p>
+      </div>
+      <div class="why-card wc4 rv rv1">
+        <div class="wc4-inner">
+          <div class="wc4-feat">
+            <div class="wc4-feat-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+            <div><div class="wc4-feat-title">Paid for Your Passion</div><div class="wc4-feat-text">Turn any platform into income while studying.</div></div>
+          </div>
+          <div class="wc4-feat">
+            <div class="wc4-feat-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+            <div><div class="wc4-feat-title">Fast Matching</div><div class="wc4-feat-text">Matched with relevant brands in under 48 hours.</div></div>
+          </div>
+          <div class="wc4-feat">
+            <div class="wc4-feat-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+            <div><div class="wc4-feat-title">Secure &amp; Transparent</div><div class="wc4-feat-text">Payment terms upfront. No hidden clauses.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BELT -->
+<div class="stats-belt">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <div class="stat-num"><span class="counter" data-target="100">0</span><span class="stat-suffix">+</span></div>
+      <div class="stat-label">Brand Partners</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num"><span class="counter" data-target="15">0</span><span class="stat-suffix">k+</span></div>
+      <div class="stat-label">College Creators</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num"><span class="counter" data-target="2000">0</span><span class="stat-suffix">+</span></div>
+      <div class="stat-label">Colleges Covered</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">₹<span class="counter" data-target="225">0</span><span class="stat-suffix">M+</span></div>
+      <div class="stat-label">Creator Earnings</div>
+    </div>
+  </div>
+</div>
+
+<!-- HOW -->
+<section class="how" id="how">
+  <div class="how-inner">
+    <div class="how-header rv-l">
+      <span class="section-eyebrow">How It Works</span>
+      <h2 class="section-title">From apply to <em style="color:var(--yellow)">paid campaign</em> in 3 steps.</h2>
+    </div>
+    <div class="how-steps">
+      <div class="how-step rv-l rv1">
+        <div class="how-bg-num">01</div>
+        <div class="how-num">Step 01</div>
+        <div class="how-step-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+        <div class="how-step-title">Apply Below</div>
+        <p class="how-step-text">Fill in your creator profile. Takes 3 minutes. Tell us your niche, audience, and what you create. No follower minimum — quality over quantity.</p>
+      </div>
+      <div class="how-step rv rv2">
+        <div class="how-bg-num">02</div>
+        <div class="how-num">Step 02</div>
+        <div class="how-step-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+        <div class="how-step-title">Get Verified &amp; Matched</div>
+        <p class="how-step-text">Our team reviews your profile within 48 hours and matches you with brands that fit your content style and audience demographics.</p>
+      </div>
+      <div class="how-step rv-r rv3">
+        <div class="how-bg-num">03</div>
+        <div class="how-num">Step 03</div>
+        <div class="how-step-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></div>
+        <div class="how-step-title">Create &amp; Get Paid</div>
+        <p class="how-step-text">Receive a campaign brief, create your content, post it, and get paid. Repeat. Build your portfolio, audience, and bank account.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORM -->
+<section class="form-sec" id="apply">
+  <div class="form-inner">
+    <div class="form-header rv-l">
+      <span class="section-eyebrow">Creator Application</span>
+      <h2 class="section-title">Your collab era <em>starts here.</em></h2>
+      <p class="section-sub">Join hundreds of college creators already locking in brand deals on VigorSpace.</p>
+    </div>
+    <div class="form-body rv">
+      <div class="form-prog"><div class="form-prog-fill" id="form-prog-fill"></div></div>
+      <form id="cForm" novalidate>
+        <!-- Step Indicator -->
+        <div class="step-indicator">
+          <div class="step-dot active" id="sdot-1"><div class="step-dot-circle">1</div><span class="step-lbl">Personal</span></div>
+          <div class="step-conn" id="sconn-1"></div>
+          <div class="step-dot" id="sdot-2"><div class="step-dot-circle">2</div><span class="step-lbl">Social</span></div>
+          <div class="step-conn" id="sconn-2"></div>
+          <div class="step-dot" id="sdot-3"><div class="step-dot-circle">3</div><span class="step-lbl">College</span></div>
+        </div>
+
+        <!-- STEP 1: Personal Information -->
+        <div class="form-step active" id="step-1">
+          <div class="form-sec-head"><span class="fshn">01</span><span class="fsht">Personal Information</span><span class="fsh-line"></span></div>
+          <div class="form-grid">
+            <div class="field"><label>Full Name <span class="req">*</span></label><input type="text" id="f-name" placeholder="Your full name" autocomplete="name"/><div class="field-bar"></div><div class="field-err" id="e-name">Please enter your name</div></div>
+            <div class="field"><label>Email ID <span class="req">*</span></label><input type="email" id="f-email" placeholder="you@gmail.com" autocomplete="email"/><div class="field-bar"></div><div class="field-err" id="e-email">Enter a valid email address</div></div>
+            <div class="field"><label>WhatsApp Number <span class="req">*</span></label><input type="tel" id="f-phone" placeholder="10-digit mobile number" maxlength="10" autocomplete="tel"/><div class="field-bar"></div><div class="field-err" id="e-phone">Enter a valid 10-digit number</div></div>
+            <div class="field"><label>Age <span class="req">*</span></label><input type="number" id="f-age" placeholder="Your age" min="16" max="35"/><div class="field-bar"></div><div class="field-err" id="e-age">Valid age is 16–35</div></div>
+            <div class="field"><label>Gender <span class="req">*</span></label>
+              <div class="csel" id="csel-gender">
+                <div class="csel-trigger"><span class="csel-text">Select gender</span><svg class="csel-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+                <div class="csel-drop">
+                  <div class="csel-opt" data-val="Male">Male</div>
+                  <div class="csel-opt" data-val="Female">Female</div>
+                  <div class="csel-opt" data-val="Non-binary">Non-binary</div>
+                  <div class="csel-opt" data-val="Prefer not to say">Prefer not to say</div>
+                </div>
+                <input type="hidden" id="f-gender"/>
+              </div>
+              <div class="field-bar"></div><div class="field-err" id="e-gender">Please select your gender</div>
+            </div>
+            <div class="field"><label>City (Residential) <span class="req">*</span></label><input type="text" id="f-city" placeholder="e.g. Mumbai" autocomplete="address-level2"/><div class="field-bar"></div><div class="field-err" id="e-city">Please enter your city</div></div>
+            <div class="field"><label>State (Residential) <span class="req">*</span></label>
+              <div class="csel" id="csel-state">
+                <div class="csel-trigger"><span class="csel-text">Select state</span><svg class="csel-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+                <div class="csel-drop">
+                  <div class="csel-opt" data-val="Andhra Pradesh">Andhra Pradesh</div><div class="csel-opt" data-val="Arunachal Pradesh">Arunachal Pradesh</div><div class="csel-opt" data-val="Assam">Assam</div><div class="csel-opt" data-val="Bihar">Bihar</div><div class="csel-opt" data-val="Chhattisgarh">Chhattisgarh</div><div class="csel-opt" data-val="Goa">Goa</div><div class="csel-opt" data-val="Gujarat">Gujarat</div><div class="csel-opt" data-val="Haryana">Haryana</div><div class="csel-opt" data-val="Himachal Pradesh">Himachal Pradesh</div><div class="csel-opt" data-val="Jharkhand">Jharkhand</div><div class="csel-opt" data-val="Karnataka">Karnataka</div><div class="csel-opt" data-val="Kerala">Kerala</div><div class="csel-opt" data-val="Madhya Pradesh">Madhya Pradesh</div><div class="csel-opt" data-val="Maharashtra">Maharashtra</div><div class="csel-opt" data-val="Manipur">Manipur</div><div class="csel-opt" data-val="Meghalaya">Meghalaya</div><div class="csel-opt" data-val="Mizoram">Mizoram</div><div class="csel-opt" data-val="Nagaland">Nagaland</div><div class="csel-opt" data-val="Odisha">Odisha</div><div class="csel-opt" data-val="Punjab">Punjab</div><div class="csel-opt" data-val="Rajasthan">Rajasthan</div><div class="csel-opt" data-val="Sikkim">Sikkim</div><div class="csel-opt" data-val="Tamil Nadu">Tamil Nadu</div><div class="csel-opt" data-val="Telangana">Telangana</div><div class="csel-opt" data-val="Tripura">Tripura</div><div class="csel-opt" data-val="Uttar Pradesh">Uttar Pradesh</div><div class="csel-opt" data-val="Uttarakhand">Uttarakhand</div><div class="csel-opt" data-val="West Bengal">West Bengal</div><div class="csel-opt" data-val="Delhi">Delhi</div><div class="csel-opt" data-val="Chandigarh">Chandigarh</div><div class="csel-opt" data-val="Jammu and Kashmir">Jammu and Kashmir</div><div class="csel-opt" data-val="Ladakh">Ladakh</div><div class="csel-opt" data-val="Puducherry">Puducherry</div>
+                </div>
+                <input type="hidden" id="f-state"/>
+              </div>
+              <div class="field-bar"></div><div class="field-err" id="e-state">Please select your state</div>
+            </div>
+            <div class="field"><label>Pincode (Residential) <span class="req">*</span></label><input type="text" id="f-pincode" placeholder="6-digit pincode" maxlength="6" autocomplete="postal-code"/><div class="field-bar"></div><div class="field-err" id="e-pincode">Enter a valid 6-digit pincode</div></div>
+          </div>
+          <button type="button" class="btn-next" id="next-1">Continue to Social Presence →</button>
+        </div>
+
+        <!-- STEP 2: Social Presence -->
+        <div class="form-step" id="step-2">
+          <div class="form-sec-head"><span class="fshn">02</span><span class="fsht">Social Presence</span><span class="fsh-line"></span></div>
+          <div class="form-grid">
+            <div class="field full"><label>Instagram Profile URL <span class="req">*</span></label><input type="url" id="f-ig" placeholder="instagram.com/yourhandle"/><div class="field-bar"></div><div class="field-err" id="e-ig">Enter a valid Instagram URL (instagram.com/…)</div></div>
+            <div class="field"><label>Follower Count <span class="req">*</span></label>
+              <div class="csel" id="csel-followers">
+                <div class="csel-trigger"><span class="csel-text">Select range</span><svg class="csel-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+                <div class="csel-drop">
+                  <div class="csel-opt" data-val="Less than 500">Less than 500</div>
+                  <div class="csel-opt" data-val="500 – 1,000">500 – 1,000</div>
+                  <div class="csel-opt" data-val="1,000 – 5,000">1,000 – 5,000</div>
+                  <div class="csel-opt" data-val="5,000 – 10,000">5,000 – 10,000</div>
+                  <div class="csel-opt" data-val="10,000 – 50,000">10,000 – 50,000</div>
+                  <div class="csel-opt" data-val="More than 50,000">More than 50,000</div>
+                </div>
+                <input type="hidden" id="f-followers"/>
+              </div>
+              <div class="field-bar"></div><div class="field-err" id="e-followers">Please select your follower range</div>
+            </div>
+            <div class="field"><label>Profile Type <span class="req">*</span></label>
+              <div class="csel" id="csel-atype">
+                <div class="csel-trigger"><span class="csel-text">Select type</span><svg class="csel-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+                <div class="csel-drop">
+                  <div class="csel-opt" data-val="Private">Private</div>
+                  <div class="csel-opt" data-val="Public">Public</div>
+                  <div class="csel-opt" data-val="Business">Business</div>
+                </div>
+                <input type="hidden" id="f-atype"/>
+              </div>
+              <div class="field-bar"></div><div class="field-err" id="e-atype">Please select profile type</div>
+            </div>
+            <div class="field full"><label>Content Niche <span class="req">*</span></label>
+              <div class="csel" id="csel-niche">
+                <div class="csel-trigger"><span class="csel-text">Select niche</span><svg class="csel-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+                <div class="csel-drop">
+                  <div class="csel-opt" data-val="Travel">Travel</div>
+                  <div class="csel-opt" data-val="Lifestyle">Lifestyle</div>
+                  <div class="csel-opt" data-val="Fitness">Fitness</div>
+                  <div class="csel-opt" data-val="Fashion &amp; Beauty">Fashion &amp; Beauty</div>
+                  <div class="csel-opt" data-val="Others">Others</div>
+                </div>
+                <input type="hidden" id="f-niche"/>
+              </div>
+              <div class="field-bar"></div><div class="field-err" id="e-niche">Please select your niche</div>
+              <div id="niche-other-wrap">
+                <input type="text" id="f-niche-other" placeholder="Describe your content niche…" style="width:100%;background:transparent;border:none;outline:none;color:var(--input-col);font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;font-weight:500;padding:8px 0 0"/>
+                <div class="field-err" id="e-niche-other">Please describe your niche</div>
+              </div>
+            </div>
+          </div>
+          <button type="button" class="btn-next" id="next-2">Continue to College Info →</button>
+        </div>
+
+        <!-- STEP 3: College Information -->
+        <div class="form-step" id="step-3">
+          <div class="form-sec-head"><span class="fshn">03</span><span class="fsht">College Information</span><span class="fsh-line"></span></div>
+          <div class="form-grid">
+            <div class="field full ac-wrap"><label>College Name <span class="req">*</span></label><input type="text" id="f-college" placeholder="Start typing your college name…" autocomplete="off"/><div class="ac-drop" id="college-ac"></div><div class="field-bar"></div><div class="field-err" id="e-college">Please enter your college name</div></div>
+            <div class="field"><label>College City <span class="req">*</span></label><input type="text" id="f-college-city" placeholder="City"/><div class="field-bar"></div><div class="field-err" id="e-college-city">Please enter college city</div></div>
+            <div class="field"><label>College State <span class="req">*</span></label>
+              <div class="csel" id="csel-college-state">
+                <div class="csel-trigger"><span class="csel-text">Select state</span><svg class="csel-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+                <div class="csel-drop">
+                  <div class="csel-opt" data-val="Andhra Pradesh">Andhra Pradesh</div><div class="csel-opt" data-val="Arunachal Pradesh">Arunachal Pradesh</div><div class="csel-opt" data-val="Assam">Assam</div><div class="csel-opt" data-val="Bihar">Bihar</div><div class="csel-opt" data-val="Chhattisgarh">Chhattisgarh</div><div class="csel-opt" data-val="Goa">Goa</div><div class="csel-opt" data-val="Gujarat">Gujarat</div><div class="csel-opt" data-val="Haryana">Haryana</div><div class="csel-opt" data-val="Himachal Pradesh">Himachal Pradesh</div><div class="csel-opt" data-val="Jharkhand">Jharkhand</div><div class="csel-opt" data-val="Karnataka">Karnataka</div><div class="csel-opt" data-val="Kerala">Kerala</div><div class="csel-opt" data-val="Madhya Pradesh">Madhya Pradesh</div><div class="csel-opt" data-val="Maharashtra">Maharashtra</div><div class="csel-opt" data-val="Manipur">Manipur</div><div class="csel-opt" data-val="Meghalaya">Meghalaya</div><div class="csel-opt" data-val="Mizoram">Mizoram</div><div class="csel-opt" data-val="Nagaland">Nagaland</div><div class="csel-opt" data-val="Odisha">Odisha</div><div class="csel-opt" data-val="Punjab">Punjab</div><div class="csel-opt" data-val="Rajasthan">Rajasthan</div><div class="csel-opt" data-val="Sikkim">Sikkim</div><div class="csel-opt" data-val="Tamil Nadu">Tamil Nadu</div><div class="csel-opt" data-val="Telangana">Telangana</div><div class="csel-opt" data-val="Tripura">Tripura</div><div class="csel-opt" data-val="Uttar Pradesh">Uttar Pradesh</div><div class="csel-opt" data-val="Uttarakhand">Uttarakhand</div><div class="csel-opt" data-val="West Bengal">West Bengal</div><div class="csel-opt" data-val="Delhi">Delhi</div><div class="csel-opt" data-val="Chandigarh">Chandigarh</div><div class="csel-opt" data-val="Jammu and Kashmir">Jammu and Kashmir</div><div class="csel-opt" data-val="Ladakh">Ladakh</div><div class="csel-opt" data-val="Puducherry">Puducherry</div>
+                </div>
+                <input type="hidden" id="f-college-state"/>
+              </div>
+              <div class="field-bar"></div><div class="field-err" id="e-college-state">Please select college state</div>
+            </div>
+            <div class="field"><label>College Pincode <span class="req">*</span></label><input type="text" id="f-college-pincode" placeholder="6-digit pincode" maxlength="6"/><div class="field-bar"></div><div class="field-err" id="e-college-pincode">Enter a valid 6-digit pincode</div></div>
+            <div class="field"><label>Course <span class="req">*</span></label><input type="text" id="f-course" placeholder="e.g. B.Tech, BBA, BA…"/><div class="field-bar"></div><div class="field-err" id="e-course">Please enter your course</div></div>
+            <div class="field"><label>College Year <span class="req">*</span></label>
+              <div class="csel" id="csel-year">
+                <div class="csel-trigger"><span class="csel-text">Select year</span><svg class="csel-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+                <div class="csel-drop">
+                  <div class="csel-opt" data-val="1st Year">1st Year</div>
+                  <div class="csel-opt" data-val="2nd Year">2nd Year</div>
+                  <div class="csel-opt" data-val="3rd Year">3rd Year</div>
+                  <div class="csel-opt" data-val="4th Year">4th Year</div>
+                  <div class="csel-opt" data-val="5th Year">5th Year</div>
+                  <div class="csel-opt" data-val="Alumni">Alumni</div>
+                </div>
+                <input type="hidden" id="f-year"/>
+              </div>
+              <div class="field-bar"></div><div class="field-err" id="e-year">Please select your year</div>
+            </div>
+          </div>
+          <div class="form-submit-wrap">
+            <button type="submit" id="submitBtn">
+              <span id="btn-txt">Submit My Application</span>
+              <div class="btn-spin" id="btn-spin"></div>
+            </button>
+            <p class="form-note">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              We respond within 48 hours. Your data stays private.
+            </p>
+          </div>
+        </div>
+      </form>
+      <div class="form-success" id="fSuccess">
+        <div class="fs-icon"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div class="fs-title">You're in the queue!</div>
+        <p class="fs-sub">Thanks for applying to VigorSpace.<br/>Our team reviews your profile and reaches out within <strong>48 hours</strong>.<br/><br/>Keep creating — your collab era is loading.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXIT POPUP -->
+<div id="exit-popup">
+  <div class="exit-bd" id="exit-bd"></div>
+  <div class="exit-card">
+    <span class="exit-emoji" id="exit-emoji">😢</span>
+    <div class="exit-title" id="exit-title">Tussi Ja Rahe Ho?</div>
+    <p class="exit-sub" id="exit-sub">You're just a few steps away from locking in your first brand deal. Don't leave now!</p>
+    <div class="exit-btns">
+      <button class="exit-go" id="exit-go-btn">Yes, Leave</button>
+      <button class="exit-stay" id="exit-stay-btn">Stay &amp; Apply 🔥</button>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <a href="#" class="footer-logo"><img src="logos/logo-04.png" alt="VigorSpace"/></a>
+    <div class="footer-right">
+      <div>For college creators ready to go big.</div>
+      <div style="margin-top:6px">Questions? <a href="mailto:Nilesh@vigorlaunchpad.com">Nilesh@vigorlaunchpad.com</a></div>
+      <div style="margin-top:10px;font-size:11px;opacity:.5">© 2026 VigorSpace™. All rights reserved.</div>
+    </div>
+  </div>
+</footer>
+
+<div id="mob-nav">
+  <div id="mob-overlay"></div>
+  <div id="mob-panel">
+    <a href="#why" class="mob-link">Why Us</a>
+    <a href="#how" class="mob-link">How It Works</a>
+    <a href="#apply" class="mob-apply">Apply Now →</a>
+  </div>
+</div>
+
+<script>
+/* ── THEME ── */
+const html = document.documentElement;
+const themeBtn = document.getElementById('themeBtn');
+const iconSun = document.getElementById('icon-sun');
+const iconMoon = document.getElementById('icon-moon');
+const navLogoImg = document.getElementById('nav-logo-img');
+const saved = localStorage.getItem('vs-theme') || 'dark';
+setTheme(saved);
+function setTheme(t) {
+  html.dataset.theme = t;
+  localStorage.setItem('vs-theme', t);
+  if (t === 'light') {
+    iconSun.style.display = 'none'; iconMoon.style.display = 'block';
+    navLogoImg.src = 'logos/logo-03.png';
+    document.querySelector('.footer-logo img').src = 'logos/logo-03.png';
+  } else {
+    iconSun.style.display = 'block'; iconMoon.style.display = 'none';
+    navLogoImg.src = 'logos/logo-04.png';
+    document.querySelector('.footer-logo img').src = 'logos/logo-04.png';
+  }
+}
+themeBtn.addEventListener('click', () => setTheme(html.dataset.theme === 'dark' ? 'light' : 'dark'));
+
+/* ── LOADER ── */
+const loader = document.getElementById('loader');
+function runLoader() {
+  setTimeout(() => document.getElementById('ld-logo').classList.add('show'), 300);
+  setTimeout(() => { document.getElementById('ld-label').classList.add('show'); document.getElementById('ld-bar-wrap').classList.add('show'); }, 800);
+  let p = 0;
+  const bi = setInterval(() => { p = Math.min(p + Math.random() * 5 + 2, 100); document.getElementById('ld-bar').style.width = p + '%'; if (p >= 100) clearInterval(bi); }, 40);
+  setTimeout(() => showCount('3'), 700);
+  setTimeout(() => showCount('2'), 1280);
+  setTimeout(() => showCount('1'), 1860);
+  setTimeout(() => showCount('GO'), 2440);
+  setTimeout(revealPage, 2950);
+}
+function showCount(n) {
+  const el = document.getElementById('ld-count');
+  el.classList.remove('show','go-fill'); el.classList.add('hide');
+  setTimeout(() => { el.textContent = n; el.classList.remove('hide'); el.classList.add('show'); if (n === 'GO') el.classList.add('go-fill'); }, 180);
+}
+function revealPage() {
+  loader.classList.add('out');
+  document.body.classList.remove('loading');
+  setTimeout(() => { loader.style.display = 'none'; initPage(); }, 1050);
+}
+if (window.matchMedia('(prefers-reduced-motion:reduce)').matches) {
+  loader.style.display = 'none'; document.body.classList.remove('loading'); setTimeout(initPage, 50);
+} else { runLoader(); }
+
+/* ── CURSOR ── */
+const dot = document.getElementById('cdot'), ring = document.getElementById('cring');
+let mx = -100, my = -100, rx = -100, ry = -100;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+(function moveCursor() { dot.style.left = mx+'px'; dot.style.top = my+'px'; rx += (mx-rx)*.12; ry += (my-ry)*.12; ring.style.left = rx+'px'; ring.style.top = ry+'px'; requestAnimationFrame(moveCursor); })();
+document.querySelectorAll('a,button,.lchip-l,.why-card').forEach(el => {
+  el.addEventListener('mouseenter', () => document.body.classList.add('hover-active'));
+  el.addEventListener('mouseleave', () => document.body.classList.remove('hover-active'));
+});
+
+/* ── CURSOR TRAIL ── */
+const TN = 9, trail = [];
+for (let i = 0; i < TN; i++) {
+  const d = document.createElement('div');
+  const s = (TN - i) * 1.5 + 1.5;
+  d.style.cssText = `position:fixed;width:${s}px;height:${s}px;border-radius:50%;pointer-events:none;z-index:9996;transform:translate(-50%,-50%);background:${i%2?'#E8435A':'#FFD01F'};opacity:${(TN-i)/TN*.3}`;
+  document.body.appendChild(d);
+  trail.push({el:d, x:-200, y:-200});
+}
+(function ut() {
+  let px = mx, py = my;
+  trail.forEach(t => { t.x += (px-t.x)*.22; t.y += (py-t.y)*.22; t.el.style.left = t.x+'px'; t.el.style.top = t.y+'px'; px = t.x; py = t.y; });
+  requestAnimationFrame(ut);
+})();
+
+/* ── SCROLL PROGRESS ── */
+const sprog = document.getElementById('sprog');
+window.addEventListener('scroll', () => { sprog.style.width = (window.scrollY/(document.body.scrollHeight-innerHeight)*100)+'%'; }, {passive:true});
+
+/* ── NAV ── */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 60), {passive:true});
+
+/* ── INIT ── */
+function initPage() {
+  initCanvas(); initMagnetic(); initTilt(); initReveal(); initGlitch(); initForm(); initCustomSelects();
+  initSmoothScroll(); initHeroSpotlight(); initParallax(); initScramble(); initStatsCounters(); initFormProgress(); initHamburger(); initExitPopup();
+  requestAnimationFrame(() => {
+    document.querySelectorAll('.hero-title .ln').forEach((ln, i) => setTimeout(() => ln.classList.add('revealed'), i * 120));
+    setTimeout(() => document.querySelector('.hero-sub')?.classList.add('revealed'), 480);
+    setTimeout(() => document.querySelector('.hero-actions')?.classList.add('revealed'), 640);
+    setTimeout(() => document.querySelector('.hero-stats')?.classList.add('revealed'), 800);
+    setTimeout(() => document.getElementById('hero-right')?.classList.add('revealed'), 380);
+  });
+}
+
+/* ── CANVAS PARTICLES ── */
+function initCanvas() {
+  const cv = document.getElementById('hero-canvas'), ctx = cv.getContext('2d');
+  let W, H, ps = [];
+  const rz = () => { W = cv.width = cv.offsetWidth; H = cv.height = cv.offsetHeight; };
+  class P {
+    constructor(ry) { this.reset(ry); }
+    reset(ry) { this.x = Math.random()*W; this.y = ry?Math.random()*H:H+5; this.vx=(Math.random()-.5)*.42; this.vy=-(Math.random()*.6+.14); this.r=Math.random()*2.6+.5; this.a=Math.random()*.44+.06; this.c=Math.random()>.52?'#E8435A':'#FFD01F'; }
+    tick() { this.x+=this.vx; this.y+=this.vy; if(this.y<-5) this.reset(false); }
+    draw() { ctx.beginPath(); ctx.arc(this.x,this.y,this.r,0,Math.PI*2); ctx.fillStyle=this.c; ctx.globalAlpha=this.a; ctx.fill(); }
+  }
+  rz(); for(let i=0;i<80;i++) ps.push(new P(true));
+  (function loop() { ctx.clearRect(0,0,W,H); ps.forEach(p=>{p.tick();p.draw();}); ctx.globalAlpha=1; requestAnimationFrame(loop); })();
+  window.addEventListener('resize', rz, {passive:true});
+}
+
+/* ── MAGNETIC ── */
+function initMagnetic() {
+  document.querySelectorAll('.magnetic').forEach(b => {
+    b.addEventListener('mousemove', e => { const r=b.getBoundingClientRect(); b.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.33}px,${(e.clientY-r.top-r.height/2)*.33}px)`; });
+    b.addEventListener('mouseleave', () => b.style.transform='');
+  });
+}
+
+/* ── TILT ── */
+function initTilt() {
+  document.querySelectorAll('.why-card').forEach(c => {
+    c.addEventListener('mousemove', e => { const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5; c.style.transform=`perspective(800px) rotateX(${-y*7}deg) rotateY(${x*7}deg) translateZ(10px) scale(1.01)`; });
+    c.addEventListener('mouseleave', () => c.style.transform='');
+  });
+}
+
+/* ── GLITCH ── */
+function initGlitch() {
+  const el = document.querySelector('.glitch-word');
+  if (!el) return;
+  function g() {
+    el.style.textShadow='2px 0 #E8435A,-2px 0 #FFD01F'; el.style.transform='translateX(2px) skew(-1deg)';
+    setTimeout(()=>{el.style.textShadow='-2px 0 #FFD01F,2px 0 #E8435A'; el.style.transform='translateX(-2px) skew(1deg)';},75);
+    setTimeout(()=>{el.style.textShadow=''; el.style.transform='';},155);
+    setTimeout(g, 3200+Math.random()*4000);
+  }
+  setTimeout(g, 2200);
+}
+
+/* ══════════════════════════════════════════════
+   STATS COUNTERS — FIXED SIMPLE VERSION
+   No DOM rewriting, no flip animation.
+   Just smooth count-up + slide-in entrance.
+══════════════════════════════════════════════ */
+function initStatsCounters() {
+  const items = document.querySelectorAll('.stat-item');
+  if (!items.length) return;
+
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const item = entry.target;
+      obs.unobserve(item);
+
+      // Trigger slide-up entrance
+      item.classList.add('counted');
+
+      // Animate the counter number
+      const counter = item.querySelector('.counter');
+      if (!counter) return;
+      const target = +counter.dataset.target;
+      const dur = 1800;
+      const start = performance.now();
+
+      (function step(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / dur, 1);
+        // Ease out cubic
+        const eased = 1 - Math.pow(1 - progress, 3);
+        counter.textContent = Math.round(eased * target);
+        if (progress < 1) requestAnimationFrame(step);
+        else counter.textContent = target; // ensure exact final value
+      })(start);
+    });
+  }, { threshold: 0.35 });
+
+  items.forEach(item => obs.observe(item));
+}
+
+/* ── CUSTOM SELECTS ── */
+function initCustomSelects() {
+  document.querySelectorAll('.csel').forEach(sel => {
+    const trigger = sel.querySelector('.csel-trigger');
+    const text = sel.querySelector('.csel-text');
+    const input = sel.querySelector('input[type="hidden"]');
+    const opts = sel.querySelectorAll('.csel-opt');
+    trigger.addEventListener('click', e => { e.stopPropagation(); document.querySelectorAll('.csel.open').forEach(o => { if(o!==sel) o.classList.remove('open'); }); sel.classList.toggle('open'); });
+    opts.forEach(opt => {
+      opt.addEventListener('click', e => {
+        e.stopPropagation();
+        const val = opt.dataset.val;
+        text.textContent = val; text.classList.add('has-val');
+        input.value = val;
+        input.dispatchEvent(new Event('change',{bubbles:true}));
+        opts.forEach(o=>o.classList.remove('chosen')); opt.classList.add('chosen');
+        sel.classList.remove('open');
+        sel.closest('.field')?.classList.remove('err');
+        sel.closest('.field')?.querySelector('.field-err')?.classList.remove('on');
+      });
+    });
+  });
+  document.addEventListener('click', () => document.querySelectorAll('.csel.open').forEach(s=>s.classList.remove('open')));
+}
+
+/* ── REVEAL ── */
+function initReveal() {
+  const rvO = new IntersectionObserver(es => { es.forEach(e => { if(e.isIntersecting){e.target.classList.add('on'); rvO.unobserve(e.target);} }); }, {threshold:.1});
+  document.querySelectorAll('.rv,.rv-l,.rv-r').forEach(el => rvO.observe(el));
+  const w1O = new IntersectionObserver(es => { es.forEach(e => { if(e.isIntersecting){ const n=e.target.querySelector('.wc1-stat'); if(n){ const t=+n.dataset.count,dur=1500,s=performance.now(); (function step(now){const p=Math.min((now-s)/dur,1),ease=1-Math.pow(1-p,3); n.textContent=Math.round(ease*t)+'+'; if(p<1) requestAnimationFrame(step);})(s); } w1O.unobserve(e.target); } }); }, {threshold:.3});
+  document.querySelectorAll('.wc1').forEach(el => w1O.observe(el));
+}
+
+/* ── CSEL PROGRAMMATIC SET ── */
+function setCselValue(cselId, value) {
+  const csel = document.getElementById(cselId);
+  if (!csel) return;
+  const text = csel.querySelector('.csel-text');
+  const input = csel.querySelector('input[type="hidden"]');
+  const opts = csel.querySelectorAll('.csel-opt');
+  opts.forEach(o => o.classList.toggle('chosen', o.dataset.val === value));
+  if (text) { text.textContent = value; text.classList.add('has-val'); }
+  if (input) { input.value = value; input.dispatchEvent(new Event('change', {bubbles:true})); }
+  csel.closest('.field')?.classList.remove('err');
+  csel.closest('.field')?.querySelector('.field-err')?.classList.remove('on');
+}
+
+/* ── FORM ── */
+function initForm() {
+  const GAS = 'https://script.google.com/macros/s/AKfycbzIz9hrz1SnaRpw8ilj3Pya3l9TGPCdDT9MXfHoBCldL44X4QZUOUk23IVBIjjcnn_5/exec';
+  let collectedData = {};
+  let currentStep = 1;
+
+  function gv(id) { return document.getElementById(id)?.value || ''; }
+
+  function setErr(id, bad) {
+    const f = document.getElementById('f-' + id);
+    const e = document.getElementById('e-' + id);
+    f?.closest('.field')?.classList.toggle('err', bad);
+    e?.classList.toggle('on', bad);
+    return bad;
+  }
+
+  function saveProgress() {
+    try {
+      localStorage.setItem('vs-form', JSON.stringify({
+        name:gv('f-name'), email:gv('f-email'), phone:gv('f-phone'), age:gv('f-age'),
+        gender:gv('f-gender'), city:gv('f-city'), state:gv('f-state'), pincode:gv('f-pincode'),
+        ig:gv('f-ig'), followers:gv('f-followers'), atype:gv('f-atype'),
+        niche:gv('f-niche'), nicheOther:gv('f-niche-other'),
+        college:gv('f-college'), collegeCity:gv('f-college-city'),
+        collegeState:gv('f-college-state'), collegePincode:gv('f-college-pincode'),
+        course:gv('f-course'), year:gv('f-year'), _step:currentStep
+      }));
+    } catch(_) {}
+  }
+
+  // Restore saved progress
+  try {
+    const sv = JSON.parse(localStorage.getItem('vs-form') || '{}');
+    const sf = (id, val) => { if(val) { const el=document.getElementById('f-'+id); if(el) el.value=val; } };
+    sf('name',sv.name); sf('email',sv.email); sf('phone',sv.phone); sf('age',sv.age);
+    sf('city',sv.city); sf('pincode',sv.pincode);
+    sf('ig',sv.ig); sf('niche-other',sv.nicheOther);
+    sf('college',sv.college); sf('college-city',sv.collegeCity);
+    sf('college-pincode',sv.collegePincode); sf('course',sv.course);
+    if (sv.gender) setCselValue('csel-gender', sv.gender);
+    if (sv.state) setCselValue('csel-state', sv.state);
+    if (sv.followers) setCselValue('csel-followers', sv.followers);
+    if (sv.atype) setCselValue('csel-atype', sv.atype);
+    if (sv.niche) {
+      setCselValue('csel-niche', sv.niche);
+      if (sv.niche === 'Others') document.getElementById('niche-other-wrap').classList.add('show');
+    }
+    if (sv.collegeState) setCselValue('csel-college-state', sv.collegeState);
+    if (sv.year) setCselValue('csel-year', sv.year);
+    if (sv._step && sv._step > 1) goToStep(sv._step, false);
+  } catch(_) {}
+
+  document.getElementById('cForm').addEventListener('input', saveProgress);
+  document.getElementById('cForm').addEventListener('change', saveProgress);
+
+  // Show "Others" text input when niche = Others
+  document.getElementById('f-niche').addEventListener('change', () => {
+    document.getElementById('niche-other-wrap').classList.toggle('show', gv('f-niche') === 'Others');
+  });
+
+  function goToStep(n, scroll) {
+    document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
+    document.getElementById('step-' + n).classList.add('active');
+    [1,2,3].forEach(i => {
+      const dot = document.getElementById('sdot-' + i);
+      dot.classList.remove('active','done');
+      if (i < n) dot.classList.add('done');
+      else if (i === n) dot.classList.add('active');
+      if (i < 3) document.getElementById('sconn-' + i)?.classList.toggle('done', i < n);
+    });
+    const pct = {1:'8%', 2:'52%', 3:'100%'};
+    const fill = document.getElementById('form-prog-fill');
+    if (fill) fill.style.width = pct[n];
+    currentStep = n;
+    saveProgress();
+    if (scroll !== false) {
+      const sec = document.getElementById('apply');
+      if (sec) window.scrollTo({top: sec.getBoundingClientRect().top + window.scrollY - 90, behavior:'smooth'});
+    }
+  }
+
+  function scrollToErr() {
+    document.querySelector('.form-step.active .field.err')?.scrollIntoView({behavior:'smooth', block:'center'});
+  }
+
+  function validateStep1() {
+    let bad = false;
+    bad |= setErr('name', !gv('f-name').trim());
+    bad |= setErr('email', !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(gv('f-email')));
+    bad |= setErr('phone', gv('f-phone').replace(/\D/g,'').length !== 10);
+    const age = +gv('f-age');
+    bad |= setErr('age', !age || age < 16 || age > 35);
+    bad |= setErr('gender', !gv('f-gender'));
+    bad |= setErr('city', !gv('f-city').trim());
+    bad |= setErr('state', !gv('f-state'));
+    bad |= setErr('pincode', !/^\d{6}$/.test(gv('f-pincode')));
+    return !bad;
+  }
+
+  function validateStep2() {
+    let bad = false;
+    const ig = gv('f-ig').trim();
+    bad |= setErr('ig', !ig || !/instagram\.com\//i.test(ig));
+    bad |= setErr('followers', !gv('f-followers'));
+    bad |= setErr('atype', !gv('f-atype'));
+    bad |= setErr('niche', !gv('f-niche'));
+    if (gv('f-niche') === 'Others') bad |= setErr('niche-other', !gv('f-niche-other').trim());
+    return !bad;
+  }
+
+  function validateStep3() {
+    let bad = false;
+    bad |= setErr('college', !gv('f-college').trim());
+    bad |= setErr('college-city', !gv('f-college-city').trim());
+    bad |= setErr('college-state', !gv('f-college-state'));
+    bad |= setErr('college-pincode', !/^\d{6}$/.test(gv('f-college-pincode')));
+    bad |= setErr('course', !gv('f-course').trim());
+    bad |= setErr('year', !gv('f-year'));
+    return !bad;
+  }
+
+  function sendToGAS(payload) {
+    if (GAS === 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL') return;
+    const url = GAS + '?d=' + encodeURIComponent(JSON.stringify(payload));
+    fetch(url).catch(() => {});
+  }
+
+  function sendPartial(step) {
+    sendToGAS({...collectedData, _partial: true, _step: step});
+  }
+
+  document.getElementById('next-1').addEventListener('click', () => {
+    if (!validateStep1()) { scrollToErr(); return; }
+    Object.assign(collectedData, {
+      Name:gv('f-name'), 'Email ID':gv('f-email'), 'Contact Number':gv('f-phone'),
+      Age:gv('f-age'), Gender:gv('f-gender'), City:gv('f-city'), State:gv('f-state'), Pincode:gv('f-pincode')
+    });
+    sendPartial(1);
+    goToStep(2);
+  });
+
+  document.getElementById('next-2').addEventListener('click', () => {
+    if (!validateStep2()) { scrollToErr(); return; }
+    const niche = gv('f-niche');
+    Object.assign(collectedData, {
+      'Instagram URL':gv('f-ig'), 'Follower Range':gv('f-followers'),
+      'Profile Type':gv('f-atype'), Niche: niche === 'Others' ? 'Others – ' + gv('f-niche-other') : niche
+    });
+    sendPartial(2);
+    goToStep(3);
+  });
+
+  document.getElementById('cForm').addEventListener('submit', async e => {
+    e.preventDefault();
+    if (!validateStep3()) { scrollToErr(); return; }
+    Object.assign(collectedData, {
+      'College Name':gv('f-college'), 'College City':gv('f-college-city'),
+      'College State':gv('f-college-state'), 'College Pincode':gv('f-college-pincode'),
+      Course:gv('f-course'), 'College Year':gv('f-year')
+    });
+    const btn = document.getElementById('submitBtn');
+    const txt = document.getElementById('btn-txt');
+    const spin = document.getElementById('btn-spin');
+    btn.disabled = true; txt.style.display = 'none'; spin.style.display = 'block';
+    try { sendToGAS(collectedData); } catch(_) {}
+    try { localStorage.removeItem('vs-form'); } catch(_) {}
+    showSuccess();
+  });
+
+  initCollegeAC();
+}
+
+/* ── COLLEGE AUTOCOMPLETE ── */
+function initCollegeAC() {
+  const COLLEGES = [
+    {name:'IIT Bombay',city:'Mumbai',state:'Maharashtra',pin:'400076'},
+    {name:'IIT Delhi',city:'New Delhi',state:'Delhi',pin:'110016'},
+    {name:'IIT Madras',city:'Chennai',state:'Tamil Nadu',pin:'600036'},
+    {name:'IIT Kanpur',city:'Kanpur',state:'Uttar Pradesh',pin:'208016'},
+    {name:'IIT Kharagpur',city:'Kharagpur',state:'West Bengal',pin:'721302'},
+    {name:'IIT Roorkee',city:'Roorkee',state:'Uttarakhand',pin:'247667'},
+    {name:'IIT Hyderabad',city:'Hyderabad',state:'Telangana',pin:'502285'},
+    {name:'IIT Guwahati',city:'Guwahati',state:'Assam',pin:'781039'},
+    {name:'IIT BHU Varanasi',city:'Varanasi',state:'Uttar Pradesh',pin:'221005'},
+    {name:'IIT Gandhinagar',city:'Gandhinagar',state:'Gujarat',pin:'382355'},
+    {name:'IIT Jodhpur',city:'Jodhpur',state:'Rajasthan',pin:'342037'},
+    {name:'BITS Pilani',city:'Pilani',state:'Rajasthan',pin:'333031'},
+    {name:'BITS Goa',city:'Vasco da Gama',state:'Goa',pin:'403726'},
+    {name:'BITS Hyderabad',city:'Hyderabad',state:'Telangana',pin:'500078'},
+    {name:'NIT Trichy',city:'Tiruchirappalli',state:'Tamil Nadu',pin:'620015'},
+    {name:'NIT Warangal',city:'Warangal',state:'Telangana',pin:'506004'},
+    {name:'NIT Surathkal',city:'Surathkal',state:'Karnataka',pin:'575025'},
+    {name:'NIT Calicut',city:'Kozhikode',state:'Kerala',pin:'673601'},
+    {name:'NIT Rourkela',city:'Rourkela',state:'Odisha',pin:'769008'},
+    {name:'NIT Jaipur (MNIT)',city:'Jaipur',state:'Rajasthan',pin:'302017'},
+    {name:'University of Delhi',city:'New Delhi',state:'Delhi',pin:'110007'},
+    {name:'Miranda House',city:'New Delhi',state:'Delhi',pin:'110007'},
+    {name:'Lady Shri Ram College',city:'New Delhi',state:'Delhi',pin:'110024'},
+    {name:'St. Stephens College Delhi',city:'New Delhi',state:'Delhi',pin:'110007'},
+    {name:'Hindu College Delhi',city:'New Delhi',state:'Delhi',pin:'110007'},
+    {name:'Kirori Mal College',city:'New Delhi',state:'Delhi',pin:'110007'},
+    {name:'Hansraj College',city:'New Delhi',state:'Delhi',pin:'110007'},
+    {name:'SRCC Delhi',city:'New Delhi',state:'Delhi',pin:'110007'},
+    {name:'Gargi College',city:'New Delhi',state:'Delhi',pin:'110049'},
+    {name:'JNU (Jawaharlal Nehru University)',city:'New Delhi',state:'Delhi',pin:'110067'},
+    {name:'Jamia Millia Islamia',city:'New Delhi',state:'Delhi',pin:'110025'},
+    {name:'Delhi Technological University',city:'New Delhi',state:'Delhi',pin:'110042'},
+    {name:'NSUT (Netaji Subhas University of Technology)',city:'New Delhi',state:'Delhi',pin:'110078'},
+    {name:'GGSIPU (IP University)',city:'New Delhi',state:'Delhi',pin:'110078'},
+    {name:'Amity University Noida',city:'Noida',state:'Uttar Pradesh',pin:'201313'},
+    {name:'Amity University Mumbai',city:'Mumbai',state:'Maharashtra',pin:'410206'},
+    {name:'University of Mumbai',city:'Mumbai',state:'Maharashtra',pin:'400032'},
+    {name:'VJTI Mumbai',city:'Mumbai',state:'Maharashtra',pin:'400019'},
+    {name:'NMIMS Mumbai',city:'Mumbai',state:'Maharashtra',pin:'400056'},
+    {name:'Jai Hind College',city:'Mumbai',state:'Maharashtra',pin:'400020'},
+    {name:'St. Xaviers College Mumbai',city:'Mumbai',state:'Maharashtra',pin:'400001'},
+    {name:'Mithibai College',city:'Mumbai',state:'Maharashtra',pin:'400056'},
+    {name:'SPIT Mumbai',city:'Mumbai',state:'Maharashtra',pin:'400058'},
+    {name:'Savitribai Phule Pune University',city:'Pune',state:'Maharashtra',pin:'411007'},
+    {name:'COEP Pune',city:'Pune',state:'Maharashtra',pin:'411005'},
+    {name:'MIT Pune',city:'Pune',state:'Maharashtra',pin:'411038'},
+    {name:'Symbiosis International University',city:'Pune',state:'Maharashtra',pin:'412115'},
+    {name:'Fergusson College Pune',city:'Pune',state:'Maharashtra',pin:'411004'},
+    {name:'Christ University',city:'Bengaluru',state:'Karnataka',pin:'560029'},
+    {name:'Bangalore University',city:'Bengaluru',state:'Karnataka',pin:'560056'},
+    {name:'PES University',city:'Bengaluru',state:'Karnataka',pin:'560085'},
+    {name:'RV College of Engineering',city:'Bengaluru',state:'Karnataka',pin:'560059'},
+    {name:'BMS College of Engineering',city:'Bengaluru',state:'Karnataka',pin:'560019'},
+    {name:'MS Ramaiah Institute of Technology',city:'Bengaluru',state:'Karnataka',pin:'560054'},
+    {name:'Manipal Institute of Technology',city:'Manipal',state:'Karnataka',pin:'576104'},
+    {name:'St. Josephs College Bengaluru',city:'Bengaluru',state:'Karnataka',pin:'560027'},
+    {name:'Anna University',city:'Chennai',state:'Tamil Nadu',pin:'600025'},
+    {name:'SRM Institute of Science and Technology',city:'Chennai',state:'Tamil Nadu',pin:'603203'},
+    {name:'VIT Vellore',city:'Vellore',state:'Tamil Nadu',pin:'632014'},
+    {name:'PSG College of Technology',city:'Coimbatore',state:'Tamil Nadu',pin:'641004'},
+    {name:'Loyola College Chennai',city:'Chennai',state:'Tamil Nadu',pin:'600034'},
+    {name:'Madras Christian College',city:'Chennai',state:'Tamil Nadu',pin:'600059'},
+    {name:'Osmania University',city:'Hyderabad',state:'Telangana',pin:'500007'},
+    {name:'University of Hyderabad',city:'Hyderabad',state:'Telangana',pin:'500046'},
+    {name:'CBIT Hyderabad',city:'Hyderabad',state:'Telangana',pin:'500075'},
+    {name:'JNTU Hyderabad',city:'Hyderabad',state:'Telangana',pin:'500085'},
+    {name:'University of Kerala',city:'Thiruvananthapuram',state:'Kerala',pin:'695034'},
+    {name:'Calicut University',city:'Malappuram',state:'Kerala',pin:'673635'},
+    {name:'Cochin University of Science and Technology',city:'Kochi',state:'Kerala',pin:'682022'},
+    {name:'MG University',city:'Kottayam',state:'Kerala',pin:'686560'},
+    {name:'Calcutta University',city:'Kolkata',state:'West Bengal',pin:'700073'},
+    {name:'Jadavpur University',city:'Kolkata',state:'West Bengal',pin:'700032'},
+    {name:'Presidency University Kolkata',city:'Kolkata',state:'West Bengal',pin:'700073'},
+    {name:'Panjab University',city:'Chandigarh',state:'Chandigarh',pin:'160014'},
+    {name:'Chandigarh University',city:'Mohali',state:'Punjab',pin:'140413'},
+    {name:'Thapar University',city:'Patiala',state:'Punjab',pin:'147004'},
+    {name:'Lovely Professional University',city:'Phagwara',state:'Punjab',pin:'144402'},
+    {name:'Guru Nanak Dev University',city:'Amritsar',state:'Punjab',pin:'143005'},
+    {name:'University of Rajasthan',city:'Jaipur',state:'Rajasthan',pin:'302004'},
+    {name:'Rajasthan Technical University',city:'Kota',state:'Rajasthan',pin:'324010'},
+    {name:'Gujarat University',city:'Ahmedabad',state:'Gujarat',pin:'380009'},
+    {name:'Nirma University',city:'Ahmedabad',state:'Gujarat',pin:'382481'},
+    {name:'PDEU Gandhinagar',city:'Gandhinagar',state:'Gujarat',pin:'382007'},
+    {name:'Banaras Hindu University',city:'Varanasi',state:'Uttar Pradesh',pin:'221005'},
+    {name:'Allahabad University',city:'Prayagraj',state:'Uttar Pradesh',pin:'211002'},
+    {name:'Lucknow University',city:'Lucknow',state:'Uttar Pradesh',pin:'226007'},
+    {name:'Aligarh Muslim University',city:'Aligarh',state:'Uttar Pradesh',pin:'202002'},
+    {name:'Nagpur University',city:'Nagpur',state:'Maharashtra',pin:'440001'},
+    {name:'Patna University',city:'Patna',state:'Bihar',pin:'800005'},
+    {name:'Gauhati University',city:'Guwahati',state:'Assam',pin:'781014'},
+    {name:'IIM Ahmedabad',city:'Ahmedabad',state:'Gujarat',pin:'380015'},
+    {name:'IIM Bangalore',city:'Bengaluru',state:'Karnataka',pin:'560076'},
+    {name:'IIM Calcutta',city:'Kolkata',state:'West Bengal',pin:'700104'},
+    {name:'IIM Lucknow',city:'Lucknow',state:'Uttar Pradesh',pin:'226013'},
+    {name:'IIM Indore',city:'Indore',state:'Madhya Pradesh',pin:'453556'},
+    {name:'XLRI Jamshedpur',city:'Jamshedpur',state:'Jharkhand',pin:'831001'},
+    {name:'FMS Delhi',city:'New Delhi',state:'Delhi',pin:'110007'},
+    {name:'IIFT Delhi',city:'New Delhi',state:'Delhi',pin:'110016'},
+    {name:'Narsee Monjee Institute (NMIMS)',city:'Mumbai',state:'Maharashtra',pin:'400056'},
+  ];
+
+  const inp = document.getElementById('f-college');
+  const drop = document.getElementById('college-ac');
+  if (!inp || !drop) return;
+
+  let acFocused = -1;
+  let acMatches = [];
+
+  inp.addEventListener('input', () => {
+    const q = inp.value.trim().toLowerCase();
+    drop.innerHTML = '';
+    acFocused = -1;
+    if (q.length < 2) { drop.classList.remove('show'); return; }
+    acMatches = COLLEGES.filter(c => c.name.toLowerCase().includes(q)).slice(0, 8);
+    if (!acMatches.length) { drop.classList.remove('show'); return; }
+    const re = new RegExp('(' + q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&') + ')', 'gi');
+    acMatches.forEach(c => {
+      const item = document.createElement('div');
+      item.className = 'ac-item';
+      item.innerHTML = c.name.replace(re, '<mark>$1</mark>') +
+        '<span style="font-size:11px;color:var(--muted);display:block;margin-top:2px">' + c.city + ', ' + c.state + '</span>';
+      item.addEventListener('mousedown', e => { e.preventDefault(); selectCollege(c); });
+      drop.appendChild(item);
+    });
+    drop.classList.add('show');
+  });
+
+  inp.addEventListener('keydown', e => {
+    const items = drop.querySelectorAll('.ac-item');
+    if (!items.length) return;
+    if (e.key === 'ArrowDown') { e.preventDefault(); acFocused = Math.min(acFocused+1, items.length-1); updateAcFocus(items); }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); acFocused = Math.max(acFocused-1, 0); updateAcFocus(items); }
+    else if (e.key === 'Enter' && acFocused >= 0) { e.preventDefault(); if (acMatches[acFocused]) selectCollege(acMatches[acFocused]); }
+    else if (e.key === 'Escape') { drop.classList.remove('show'); acFocused = -1; }
+  });
+
+  inp.addEventListener('blur', () => setTimeout(() => drop.classList.remove('show'), 160));
+
+  function updateAcFocus(items) {
+    items.forEach((item, i) => item.classList.toggle('ac-focused', i === acFocused));
+  }
+
+  function selectCollege(c) {
+    inp.value = c.name;
+    const cityEl = document.getElementById('f-college-city');
+    const pinEl = document.getElementById('f-college-pincode');
+    if (cityEl) cityEl.value = c.city;
+    if (pinEl) pinEl.value = c.pin;
+    setCselValue('csel-college-state', c.state);
+    drop.classList.remove('show');
+    inp.closest('.field')?.classList.remove('err');
+    inp.closest('.field')?.querySelector('.field-err')?.classList.remove('on');
+    inp.dispatchEvent(new Event('input', {bubbles:true}));
+  }
+}
+
+function showSuccess() {
+  document.getElementById('cForm').style.display='none';
+  const s=document.getElementById('fSuccess'); s.classList.add('on');
+  s.scrollIntoView({behavior:'smooth',block:'center'});
+  doConfetti();
+}
+
+/* ── CONFETTI ── */
+function doConfetti() {
+  const canvas=document.getElementById('cf-canvas');
+  if(!canvas) return;
+  const ctx=canvas.getContext('2d');
+  canvas.width=window.innerWidth; canvas.height=window.innerHeight;
+  canvas.style.opacity='1';
+  const cols=['#E8435A','#FFD01F','#FF7A3C','#fff','#FF6B82','#FFA84C','#9C4AE8','#4AE8B0'];
+  const pieces=Array.from({length:200},()=>({x:Math.random()*canvas.width,y:-10-Math.random()*280,w:Math.random()*10+4,h:Math.random()*6+3,color:cols[Math.floor(Math.random()*cols.length)],vx:(Math.random()-.5)*6,vy:Math.random()*3+1.5,rot:Math.random()*Math.PI*2,rotV:(Math.random()-.5)*.19,g:.055+Math.random()*.06,alpha:1}));
+  (function draw() {
+    ctx.clearRect(0,0,canvas.width,canvas.height); let alive=false;
+    pieces.forEach(p => { if(p.alpha<=0) return; alive=true; p.x+=p.vx; p.y+=p.vy; p.vy+=p.g; p.rot+=p.rotV; if(p.y>canvas.height*.68) p.alpha=Math.max(0,p.alpha-.016); ctx.save(); ctx.globalAlpha=p.alpha; ctx.translate(p.x,p.y); ctx.rotate(p.rot); ctx.fillStyle=p.color; ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h); ctx.restore(); });
+    if(alive) requestAnimationFrame(draw);
+    else { canvas.style.opacity='0'; setTimeout(()=>ctx.clearRect(0,0,canvas.width,canvas.height),350); }
+  })();
+}
+
+/* ── SMOOTH SCROLL ── */
+function initSmoothScroll() {
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const id=a.getAttribute('href').slice(1); if(!id) return;
+      const tgt=document.getElementById(id); if(!tgt) return;
+      e.preventDefault();
+      const startY=window.scrollY,endY=tgt.getBoundingClientRect().top+startY-80,dur=980,s=performance.now();
+      (function step(now){const p=Math.min((now-s)/dur,1),ease=p<.5?4*p*p*p:1-Math.pow(-2*p+2,3)/2; window.scrollTo(0,startY+(endY-startY)*ease); if(p<1) requestAnimationFrame(step);})(s);
+    });
+  });
+}
+
+/* ── HERO SPOTLIGHT ── */
+function initHeroSpotlight() {
+  const hero=document.querySelector('.hero'),spot=document.getElementById('hero-spotlight');
+  if(!hero||!spot) return;
+  hero.addEventListener('mousemove',e=>{const r=hero.getBoundingClientRect(); spot.style.background=`radial-gradient(520px circle at ${e.clientX-r.left}px ${e.clientY-r.top}px,rgba(232,67,90,.07),rgba(255,208,31,.03) 40%,transparent 65%)`; spot.style.opacity='1';});
+  hero.addEventListener('mouseleave',()=>{spot.style.opacity='0';});
+}
+
+/* ── HERO PARALLAX ── */
+function initParallax() {
+  const hero=document.querySelector('.hero'),heroRight=document.getElementById('hero-right');
+  if(!hero||!heroRight||window.innerWidth<900) return;
+  const wrap=document.createElement('div'); wrap.style.cssText='position:absolute;inset:0;will-change:transform';
+  while(heroRight.firstChild) wrap.appendChild(heroRight.firstChild);
+  heroRight.appendChild(wrap);
+  let tx=0,ty=0,cx=0,cy=0;
+  hero.addEventListener('mousemove',e=>{const r=hero.getBoundingClientRect(); tx=(e.clientX-r.left-r.width/2)/r.width*-22; ty=(e.clientY-r.top-r.height/2)/r.height*-12;});
+  hero.addEventListener('mouseleave',()=>{tx=0;ty=0;});
+  (function pl(){cx+=(tx-cx)*.07;cy+=(ty-cy)*.07; wrap.style.transform=`translate(${cx.toFixed(2)}px,${cy.toFixed(2)}px)`; requestAnimationFrame(pl);})();
+}
+
+/* ── TEXT SCRAMBLE ── */
+function initScramble() {
+  const chars='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnop!@#$%&*';
+  document.querySelectorAll('.section-eyebrow').forEach(el => {
+    const orig=el.textContent;
+    const obs=new IntersectionObserver(entries=>{
+      entries.forEach(en=>{
+        if(!en.isIntersecting) return; obs.unobserve(en.target);
+        let iter=0,total=orig.length*3;
+        const iv=setInterval(()=>{
+          el.textContent=orig.split('').map((ch,i)=>{if(ch===' ') return ' '; if(i<Math.floor(iter/3)) return ch; return chars[Math.floor(Math.random()*chars.length)];}).join('');
+          if(++iter>total){clearInterval(iv); el.textContent=orig;}
+        },38);
+      });
+    },{threshold:.9});
+    obs.observe(el);
+  });
+}
+
+/* ── FORM PROGRESS ── */
+function initFormProgress() {
+  const fill = document.getElementById('form-prog-fill');
+  if (fill) fill.style.width = '8%';
+}
+
+/* ── HAMBURGER ── */
+function initHamburger() {
+  const btn=document.getElementById('ham-btn'),mobNav=document.getElementById('mob-nav'),overlay=document.getElementById('mob-overlay');
+  if(!btn||!mobNav) return;
+  function toggle(open){btn.classList.toggle('open',open); mobNav.classList.toggle('on',open); document.body.style.overflow=open?'hidden':'';}
+  btn.addEventListener('click',()=>toggle(!btn.classList.contains('open')));
+  overlay?.addEventListener('click',()=>toggle(false));
+  mobNav.querySelectorAll('.mob-link,.mob-apply').forEach(a=>a.addEventListener('click',()=>toggle(false)));
+}
+
+/* ── EXIT POPUP ── */
+function initExitPopup() {
+  const popup = document.getElementById('exit-popup');
+  if (!popup) return;
+  let shown = false;
+
+  function hasProgress() {
+    try {
+      const sv = JSON.parse(localStorage.getItem('vs-form') || '{}');
+      return !!(sv.name || sv.email || sv.phone);
+    } catch(_) { return false; }
+  }
+
+  function resetCard() {
+    shown = false;
+    document.getElementById('exit-emoji').textContent = '😢';
+    document.getElementById('exit-title').textContent = 'Tussi Ja Rahe Ho?';
+    document.getElementById('exit-sub').textContent = "You're just a few steps away from locking in your first brand deal. Don't leave now!";
+    const goBtn = document.getElementById('exit-go-btn');
+    goBtn.textContent = 'Yes, Leave';
+    delete goBtn.dataset.confirm;
+    document.getElementById('exit-stay-btn').textContent = 'Stay & Apply 🔥';
+  }
+
+  document.addEventListener('mouseleave', e => {
+    if (shown || e.clientY > 10) return;
+    if (!hasProgress()) return;
+    shown = true;
+    popup.classList.add('show');
+  });
+
+  document.getElementById('exit-stay-btn').addEventListener('click', () => {
+    popup.classList.remove('show');
+    resetCard();
+  });
+
+  document.getElementById('exit-bd').addEventListener('click', () => {
+    popup.classList.remove('show');
+    resetCard();
+  });
+
+  document.getElementById('exit-go-btn').addEventListener('click', () => {
+    const goBtn = document.getElementById('exit-go-btn');
+    if (goBtn.dataset.confirm) {
+      popup.classList.remove('show');
+      return;
+    }
+    document.getElementById('exit-emoji').textContent = '🫣';
+    document.getElementById('exit-title').textContent = 'Are you sure?';
+    document.getElementById('exit-sub').textContent = 'Your progress will be lost. It only takes 2 more minutes to complete your application!';
+    goBtn.textContent = 'Yes, leave anyway';
+    goBtn.dataset.confirm = '1';
+    document.getElementById('exit-stay-btn').textContent = 'Actually, let me stay';
+  });
+}
+</script>
+</body>
+</html>
