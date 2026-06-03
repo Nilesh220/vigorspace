@@ -2,7 +2,7 @@
 // Stores form data locally if sheet integration isn't configured
 
 const SHEET_BEST_KEY = "74c7727b-bac8-4c0f-b300-d87c593c7625";
-const SHEET_ENABLED = false; // Set to true only when Sheet.best is properly configured
+const SHEET_ENABLED = true; // Set to true only when Sheet.best is properly configured
 
 // Function to send data to Sheet via Sheet.best
 async function submitSectionToSheet(sectionNumber, formData) {
