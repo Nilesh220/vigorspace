@@ -1,33 +1,18 @@
-// VigorSpace - Google Sheet Integration (CORS-Safe)
-// Send form data to Google Sheet after each step using Sheet.best API
+// VigorSpace - Sheet Integration (With Fallback)
+// Stores form data locally if sheet integration isn't configured
 
-// Replace with your Sheet.best key after creating it
-const SHEET_BEST_KEY = "74c7727b-bac8-4c0f-b300-d87c593c7625"; 
-
-// Alternative: Use Google Forms ID (simpler, no CORS issues)
-// Instructions: Create a Google Form connected to your sheet, then get form ID
+const SHEET_BEST_KEY = "74c7727b-bac8-4c0f-b300-d87c593c7625";
+const SHEET_ENABLED = false; // Set to true only when Sheet.best is properly configured
 
 // Function to send data to Sheet via Sheet.best
 async function submitSectionToSheet(sectionNumber, formData) {
   try {
-    // If using Sheet.best (recommended for CORS safety)
-    if (SHEET_BEST_KEY !== "YOUR_SHEET_BEST_KEY") {
-      return submitViaSheetBest(sectionNumber, formData);
+    // For now, just store locally to avoid errors
+    if (!SHEET_ENABLED) {
+      console.warn("⚠️ Sheet integration disabled. Storing data locally.");
+      return storeLocally(sectionNumber, formData);
     }
-    
-    // Fallback: Store locally until sheet is configured
-    console.warn("⚠️ Sheet integration not configured yet. Data stored locally.");
-    return storeLocally(sectionNumber, formData);
-    
-  } catch(error) {
-    console.error("Sheet update failed:", error);
-    return false;
-  }
-}
 
-// Send via Sheet.best (handles CORS automatically)
-async function submitViaSheetBest(sectionNumber, formData) {
-  try {
     const payload = {
       section: `step${sectionNumber}`,
       timestamp: new Date().toLocaleString(),
@@ -50,12 +35,13 @@ async function submitViaSheetBest(sectionNumber, formData) {
       console.log(`✓ Step ${sectionNumber} saved to Sheet`);
       return true;
     } else {
-      console.error(`✗ Sheet.best error:`, response.statusText);
-      return false;
+      console.error(`✗ Sheet error (${response.status}):`, response.statusText);
+      // Fallback to local storage
+      return storeLocally(sectionNumber, formData);
     }
   } catch(error) {
-    console.error("Sheet.best submission failed:", error);
-    return false;
+    console.error("Sheet submission failed, storing locally:", error);
+    return storeLocally(sectionNumber, formData);
   }
 }
 
