@@ -35,7 +35,7 @@ async function submitViaSheetBest(sectionNumber, formData) {
     };
 
     const response = await fetch(
-      `https://sheet.best/api/sheets/${SHEET_BEST_KEY}`,
+      `https://api.sheetbest.com/sheets/${SHEET_BEST_KEY}`,
       {
         method: "POST",
         mode: "cors",
